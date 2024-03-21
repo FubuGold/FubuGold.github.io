@@ -1,0 +1,12 @@
+@import url("root.css");
+
+article.markdown-body {
+    width: 60%;
+    margin: 0 auto;
+    padding-block: 2rem;
+}
+
+pre code {
+    font-size: 1.2rem !important;
+    font-weight: 550 !important;
+}
