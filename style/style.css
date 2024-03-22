@@ -6,6 +6,7 @@ body * {
     outline: 0;
     box-sizing: border-box;
     font-size: calc(1rem + 0.1dvw);
+    line-height: 1.5em;
 }
 
 main {
@@ -24,6 +25,10 @@ pre code {
     font-weight: 550 !important;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 #doc {
     width: 60%;
     margin: 0 auto;
@@ -40,6 +45,20 @@ pre code {
         white-space: pre;
         text-overflow: ellipsis;
     }
+}
+
+#EA {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#EA-buy {
+    background-color: var(--accept);
+    padding: 6px;
+    border: none;
+    border-radius: 6px;
 }
 
 

@@ -46,6 +46,11 @@
                             <h4 class="problem-title">Bài toán 1</h4>
                             <section class="problem-detail">
                                 <p>Cho mảng \(A\) có \(n\) phần tử. Tìm \(min(A)\)</p>
+                                <p> Giới hạn:</p>
+                                <ul>
+                                    <li>\( n &le; {10}^5\)</li>
+                                    <li>\( A_i &le; {10}^9\)</li>
+                                </ul>
                             </section>
                             <details class="solution">
                                 <summary class="solution-complete">Solution</summary>
@@ -79,6 +84,12 @@
                                 <ul>
                                     <li><mark>\(p\ x\)</mark>: Update phần tử tại \(p\) thành \(x\). Tính \(min(A)\)
                                     </li>
+                                </ul>
+                                <p> Giới hạn:</p>
+                                <ul>
+                                    <li>\( n &le; {10}^5\)</li>
+                                    <li>\( A_i &le; {10}^9\)</li>
+                                    <li>\( q &le; {10}^5\)</li>
                                 </ul>
                                 </p>
                             </section>
@@ -164,7 +175,44 @@ void solve(int q)
                                     </ul>
                                 </div>
                             </details>
+                            <details class="solution">
+                                <summary class="solution-complete">SQRT Decomposition</summary>
+                                <div class="content">
+                                    <div id="EA">
+                                        <p>Tiếp tục phát triển ý tưởng chia mảng. Thay vì chia 2, ta có thể chia 4, 6,
+                                            8,... Vấn đề bây giờ là tìm số lượng đoạn con để chia sao cho hiệu quả nhất.
+                                            Ta có ...
+                                        </p>
+                                        <button id="EA-buy">Purchase Range Query Package Extension</button>
+                                        <p>© 2024 Electronic Arts Inc.</p>
+                                    </div>
+                                </div>
+                            </details>
+                            <details open>
+                                <summary class="solution-complete">Segment tree</summary>
+                                <div class="content">
+                                    <p>
+                                        Tiếp tục phát triển ý tưởng chia mảng và kết hợp với ý tưởng chia để trị để
+                                        hạn chế số lần tính lại.<br>
+                                    <h4>Precomputing: </h4>
+
+                                    Với mọi hàm có <a href="https://t.ly/f45uC">tính kết
+                                        hợp</a>,
+                                    tức là kết quả không bị ảnh hưởng bởi thứ tự của các tham số, ta có tính chất
+                                    sau: \(A[l..r]\ =\ f(A[l..mid],\ A[{(mid + 1)}..r])\). Ta tiếp tục chia đôi mảng,
+                                    áp dụng tính chất và lưu lại kết quả cho đến khi chiều dài đoạn là \(1\).<br>
+
+                                    <h4>Calculate: </h4>
+
+                                    
+
+                                    </p>
+                                </div>
+                            </details>
                         </section>
+                    </article>
+                    <article>
+                        <h3>Implementation</h3>
                     </article>
                     <article>
                         <h3>Walk on tree</h3>
@@ -178,48 +226,117 @@ void solve(int q)
                     <article>
                         <h3>Obvious range query</h3>
                         <p>
-                            Đây là những bài toán mà việc truy vấn được nêu rõ trực tiếp trong đề hoặc rất dễ để nhận ra.
-                            Thường các bài toán dạng này sẽ thêm một số điều kiện, trạng thái để lưu trên Segment tree. <br>
-                            <section class="problem" id="obvious-range-query">
-                                <h4 class="problem-title">Bài toán ví dụ:</h4>
-                                <section class="problem-detail">
-                                    <p>
-                                        Cho mảng \( A \) gồm \( 2^n \) phần tử không âm. Tìm giá trị \( v \) từ mảng A bằng cách sau:
-                                        <ul>
-                                            <li>Từ mảng A tạo mảng mới gồm \( A_1 or A_2, A_3 or A_4, ..., A_{2^n-1} or A_{2^n} \) có \( 2^{n-1} \) phần tử. Nói cách khác là tạo mảng mới từ giá trị của phép tính \( or \) giữa hai phần tử liên tiếp</li>
-                                            <li>Từ mảng trên tạo mảng mới từ giá trị của phép tính \( xor \) giữa hai phần tử liên tiếp</li>
-                                            <li>Lặp lại cho đến khi còn 1 phần tử. Phần tử đó là \( v \) cần tìm</li>
-                                        </ul>
-                                        Cho \( m \) truy vấn như sau: 
-                                        <ul>
-                                            <li><mark>\( p\  x \)</mark>: Update phần tử tại \( p \) thành \( x \). Tìm và in ra giá trị \( v \).</li>
-                                        </ul>
-                                        Giới hạn:
-                                        <ul>
-                                            <li>\( n &le; 17 \)</li>
-                                        </ul>
-                                    </p>
-                                </section>
-                                <details class="solution">
-                                    <summary class="solution-complete">Solution</summary>
-                                    <div class="content">
-                                        <p>
-                                            Đây là dạng bài cập nhập trên điểm và truy vấn trên đoạn nên chúng ta sẽ dùng Segment tree bình thường nhưng có thay đổi nhẹ.
-                                            Ta có các nhận xét sau:
-                                            <ul>
-                                                <li>Vì số lượng phần tử là lũy thừa của 2 nên ST sẽ là <b>cây nhị phân hoàn hảo</b></li>
-                                                <li>Việc tạo mảng mới tương tương với việc đi lên một tầng trên ST</li>
-                                            </ul>
-                                            Từ nhận xét trên, ta có lời giải như sau:
-                                            Xây dụng ST trên mảng \( A \) với mỗi node \( u \) trên cây được tính từ node bên trái \( v \) và node bên phải \( t \) bằng phép tính \( or \) hoặc \( xor \) tùy theo tầng của node \( u \).
-                                        </p>
-                                    </div>
-                                </details>
-                            </section>
+                            Đây là những bài toán mà việc truy vấn được nêu rõ trực tiếp trong đề hoặc rất dễ để nhận
+                            ra.
+                            Thường các bài toán dạng này sẽ thêm một số điều kiện, trạng thái để lưu trên Segment tree.
                         </p>
+                        <section class="problem" id="obvious-range-query">
+                            <h4 class="problem-title">Bài toán ví dụ:</h4>
+                            <section class="problem-detail">
+                                <p>
+                                    Cho mảng \( A \) gồm \( 2^n \) phần tử không âm. Tìm giá trị \( v \) từ mảng A bằng
+                                    cách sau:
+                                <ul>
+                                    <li>Từ mảng A tạo mảng mới gồm \( A_1\ or\ A_2,\ A_3\ or\ A_4,\ ...,\ A_{2^n-1}\ or\
+                                        A_{2^n} \) có \( 2^{n-1} \) phần tử. Nói cách khác là tạo mảng mới từ giá trị
+                                        của phép tính \( or \) giữa hai phần tử liên tiếp</li>
+                                    <li>Từ mảng trên tạo mảng mới từ giá trị của phép tính \( xor \) giữa hai phần tử
+                                        liên tiếp</li>
+                                    <li>Lặp lại cho đến khi còn 1 phần tử. Phần tử đó là \( v \) cần tìm</li>
+                                </ul>
+                                Cho \( m \) truy vấn như sau:
+                                <ul>
+                                    <li><mark>\( p\ x \)</mark>: Update phần tử tại \( p \) thành \( x \). Tìm và in ra
+                                        giá trị \( v \).</li>
+                                </ul>
+                                Giới hạn:
+                                <ul>
+                                    <li>\( n &le; 17 \)</li>
+                                    <li>\( m &le; {10}^5 \)</li>
+                                    <li>\( 0 &le; A_i &lt; 2^{30} \)</li>
+                                    <li>\( 1 &le; p_i &le; 2^{n} \)</li>
+                                    <li>\( 0 &le; x_i &lt; 2^{30} \)</li>
+                                </ul>
+                                </p>
+                            </section>
+                            <details class="solution">
+                                <summary class="solution-complete">Solution</summary>
+                                <div class="content">
+                                    <p>
+                                        Đây là dạng bài cập nhập trên điểm và truy vấn trên đoạn nên chúng ta sẽ dùng
+                                        Segment tree bình thường nhưng có thay đổi nhẹ.
+                                        Ta có các nhận xét sau:
+                                    <ul>
+                                        <li>Vì số lượng phần tử là lũy thừa của 2 nên ST sẽ là <b>cây nhị phân hoàn
+                                                hảo</b></li>
+                                        <li>Việc tạo mảng mới tương tương với việc đi lên một tầng trên ST</li>
+                                    </ul>
+                                    Từ nhận xét trên, ta có lời giải như sau:
+                                    Xây dụng ST trên mảng \( A \) với mỗi node \( u \) trên cây được tính từ node bên
+                                    trái \( v \) và node bên phải \( t \) bằng phép tính \( or \) hoặc \( xor \) tùy
+                                    theo tầng của node \( u \).
+                                    <details class="solution">
+                                        <summary class="solution-complete">Dùng mảng</summary>
+                                        <pre><code class="hljs cpp">#include &lt;bits/stdc++.h&gt;
+
+#define N int((1 &lt;&lt; 17) + 10)
+#define S int(4 * N + 10)
+
+using namespace std;
+
+int n, m, a[N], ok[S], seg[S];
+
+void Build(int i, int l, int r)
+{
+    int m = l + r &gt;&gt; 1, u = i &lt;&lt; 1, v = u + 1;
+    if (l == r){seg[i] = a[m]; ok[i] = 1; return;}
+    Build(u, l, m); Build(v, m + 1, r);
+    if (ok[u]) seg[i] = seg[u] | seg[v]; else seg[i] = seg[u] ^ seg[v], ok[i] = 1;
+}
+
+void Update(int i, int p, int x, int l, int r)
+{
+    int m = l + r &gt;&gt; 1, u = i &lt;&lt; 1, v = u + 1;
+    if (l == r){seg[i] = x; return;}
+    if (p &lt;= m) Update(u, p, x, l, m); else Update(v, p, x, m + 1, r);
+    if (ok[u]) seg[i] = seg[u] | seg[v]; else seg[i] = seg[u] ^ seg[v];
+}
+
+int main()
+{
+    cin.tie(0)-&gt;sync_with_stdio(0);
+    cin &gt;&gt; n &gt;&gt; m; for (int i = 1; i &lt;= 1 &lt;&lt; n; ++i) cin &gt;&gt; a[i];
+    Build(1, 1, 1 &lt;&lt; n);
+    while (m--)
+    {
+        int i, x; cin &gt;&gt; i &gt;&gt; x;
+        Update(1, i, x, 1, 1 &lt;&lt; n);
+        cout &lt;&lt; seg[1] &lt;&lt; &quot;\n&quot;;
+    }
+}</code></pre>
+                                    </details>
+                                    </p>
+                                </div>
+                            </details>
+                        </section>
                     </article>
                     <article>
                         <h3>Algorithm optimization</h3>
+                        <p>
+                            Đây là những bài toán mà việc dùng Segment tree chỉ để tối ưu thuật toán khác.
+                            Thường dùng để tối ưu cho bài toán DP.
+                        </p>
+                        <section class="problem" id="algorithm-optimize">
+                            <h4 class="problem-title">Bài toán ví dụ:</h4>
+                            <section class="problem-detail">
+                                <p>
+                                    Cho mảng \( A \) gồm \( n \) phần tử khác nhau đôi một. Đếm số lượng mảng con tăng
+                                    dần gồm \( k + 1 \) phần tử.
+                                    <b>Lưu ý:</b> Mảng con của mảng \( A \) là mảng được tạo từ việc xóa đi \( 0 \) hoặc
+                                    một số phần tử trong mảng \( A \) mà không thay đổi vị trí của chúng.
+                                </p>
+                            </section>
+                        </section>
                     </article>
                     <article>
                         <h3>Multiple segment trees</h3>

@@ -16,6 +16,7 @@ tocbot.init({
     headingSelector: "h1, h2, h3",
     hasInnerContainers: true,
     orderedList: false,
+    scrollSmooth: false,
 });
 
 tocbot.init({
@@ -24,8 +25,10 @@ tocbot.init({
     headingSelector: "h1, h2, h3",
     hasInnerContainers: true,
     orderedList: false,
+    scrollSmooth: false,
 });
 
+const EA = document.querySelector("#EA-buy");
 const doc = document.querySelector("#doc");
 const aside = document.querySelector("aside");
 const outline = aside.querySelector("#outline");
@@ -40,3 +43,6 @@ resizeSidebar = () => {
 };
 document.addEventListener("DOMContentLoaded", resizeSidebar);
 window.addEventListener("resize", resizeSidebar);
+EA.addEventListener("click", (event) => {
+    location.href = "https://www.facebook.com/profile.php?id=100065360947137";
+})
