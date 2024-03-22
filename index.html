@@ -38,18 +38,17 @@
                 <h2>Fundamental of Segment Tree</h2>
                 <article>
                     <h3>Concept</h3>
-                    <section>
-                        <p>
-                            Bài toán 1: Cho mảng \(A\) có \(n\) phần tử. Tìm \(min\) của của mảng \(A\)
-                        </p>
-                        <pre><code class="hljs cpp">#include &lt;bits/stdc++.h&gt;
-
-using namespace std;
-
-int main()
+                    <section class="problem" id="bài-toán-1">
+                        <h4 class="problem-title">Bài toán 1</h4>
+                        <section class="problem-detail">
+                            <p>Cho mảng \(A\) có \(n\) phần tử. Tìm \(min(A)\)</p>
+                        </section>
+                        <details>
+                            <summary class="solution-complete">Solution</summary>
+                            <p> Duyệt qua toàn bộ mảng và tìm </p>
+                            <pre><code class="hljs cpp">int solve(int n)
 {
-    int n, result = INT_MAX;
-    cin &gt;&gt; n;
+    int result = INT_MAX;
 
     for (int i = 0; i &lt; n; i++)
     {
@@ -58,21 +57,95 @@ int main()
         result = min(result, temp);
     }
 
-    cout &lt;&lt; result;
+    return result;
+}</code></pre>
+                            <ul>
+                                <li>Time complexity: \(O(n)\)</li>
+                                <li>Space complexity: \(O(1)\)</li>
+                            </ul>
+                        </details>
+                    </section>
+                    <section class="problem" id="bài-toán-2">
+                        <h4 class="problem-title">Bài toán 2</h4>
+                        <section class="problem-detail">
+                            <p> 
+                                Cho mảng \( A \) có \(n\) phần tử. Cho \(q\) truy vấn. Mỗi truy vấn có dạng:<br>
+                                <ul>
+                                    <li><mark>\(p\ x\)</mark>: Update phần tử tại \(p\) thành \(x\). Tính \(min(A)\) </li>
+                                </ul>
+                            </p>
+                        </section>
+                        <details>
+                            <summary class="solution-fail">Bruteforce</summary>
+                            <p> Như <a href="#bài-toán-1">bài toán 1</a>, duyệt toàn bộ mảng và tính lại mỗi query</p>
+                            <pre><code class="hljs cpp">void solve(int n)
+{
+    for (int i = 0; i &lt; q; i++)
+    {
+        int p, x, result = INT_MAX;
+        cin &gt;&gt; p &gt;&gt; x;
+        A[p] = x;
+
+        for (int j = 0; j &lt; n; j++)
+        {
+            result = min(result, A[j]);
+        }
+
+        cout &lt;&lt; result &lt;&lt; "\n";
+    }
+    return 0;
+}</code></pre>
+                            <ul>
+                                <li>Time complexity: <span class="solution-fail">\(O(n \times q)\)</span></li>
+                                <li>Space complexity: \(O(n)\)</li>
+                            </ul>
+                        </details>
+                        <details>
+                            <summary class="solution-partial">Optimize #1</summary>
+                            <p> Chia đôi mảng. Sau đó tìm \(min\) của 2 nửa. Với mỗi query, xác định \(p\) thuộc phần nào của 2 nửa và tính lại phần đó.</p>
+                            <pre><code class="hljs cpp">vector&lt;int&gt; min_val(2, INT_MAX);
+
+void preprocess()
+{
+    for (int i = 0; i &lt; A.size(); i++)
+    {
+        min_val[i &gt;= (A.size() / 2)] = min(min_val[i &gt;= (A.size() / 2)], A[i]);
+    }
+}
+
+void solve(int q)
+{
+    preprocess();
+
+    for (int i = 0; i &lt; q; i++)
+    {
+        int p, x;
+        cin &gt;&gt; p &gt;&gt; x;
+        A[p] = x;
+
+        if (p &lt; (A.size() / 2))
+        {
+            for (int j = 0; j &lt; A.size() / 2; j++)
+            {
+                min_val[0] = min(min_val[0], A[j]);
+            }
+        }
+        else
+        {
+            for (int j = A.size() / 2; j &lt; A.size(); j++)
+            {
+                min_val[1] = min(min_val[1], A[j]);
+            }
+        }
+
+        cout &lt;&lt; min(min_val[0], min_val[1]) &lt;&lt; &quot;\n&quot;;
+    }
 }</code></pre>
                         <ul>
-                            <li>Time complexity: \(O(n)\)</li>
-                            <li>Space complexity: \(O(1)\)</li>
+                            <li>Time complexity: <span class="solution-partial">\(O(\frac{n}{2} \times q)\)</span></li>
+                            <li>Space complexity: \(O(n)\)</li>
                         </ul>
-                    </section>
-                    <section>
-                        <p>
-                            Bài toán 2: Cho mảng \( A \) có \(n\) phần tử. Cho \(q\) truy vấn. Mỗi truy vấn có dạng:<br>
-                        <ul>
-                            <li><mark>\(p\ x\)</mark>: Update phần tử tại \(p\) thành \(x\)</li>
-                        </ul>
-                        Sau khi thực hiện \(q\) truy vấn, tìm \(min\) của mảng \(A\).
-                        </p>
+                        </details>
                     </section>
                 </article>
                 <article>

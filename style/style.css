@@ -22,3 +22,16 @@ pre code {
     background-color: rgba(110, 118, 129, .4);
     border-radius: 6px;
 }
+
+.solution-fail {
+    color: var(--deny);
+}
+
+.solution-partial {
+    color: var(--warning);
+}
+
+.solution-complete {
+    color: var(--accept);
+}
+
