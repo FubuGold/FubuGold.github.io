@@ -177,6 +177,46 @@ void solve(int q)
                     <h2>Application</h2>
                     <article>
                         <h3>Obvious range query</h3>
+                        <p>
+                            Đây là những bài toán mà việc truy vấn được nêu rõ trực tiếp trong đề hoặc rất dễ để nhận ra.
+                            Thường các bài toán dạng này sẽ thêm một số điều kiện, trạng thái để lưu trên Segment tree. <br>
+                            <section class="problem" id="obvious-range-query">
+                                <h4 class="problem-title">Bài toán ví dụ:</h4>
+                                <section class="problem-detail">
+                                    <p>
+                                        Cho mảng \( A \) gồm \( 2^n \) phần tử không âm. Tìm giá trị \( v \) từ mảng A bằng cách sau:
+                                        <ul>
+                                            <li>Từ mảng A tạo mảng mới gồm \( A_1 or A_2, A_3 or A_4, ..., A_{2^n-1} or A_{2^n} \) có \( 2^{n-1} \) phần tử. Nói cách khác là tạo mảng mới từ giá trị của phép tính \( or \) giữa hai phần tử liên tiếp</li>
+                                            <li>Từ mảng trên tạo mảng mới từ giá trị của phép tính \( xor \) giữa hai phần tử liên tiếp</li>
+                                            <li>Lặp lại cho đến khi còn 1 phần tử. Phần tử đó là \( v \) cần tìm</li>
+                                        </ul>
+                                        Cho \( m \) truy vấn như sau: 
+                                        <ul>
+                                            <li><mark>\( p\  x \)</mark>: Update phần tử tại \( p \) thành \( x \). Tìm và in ra giá trị \( v \).</li>
+                                        </ul>
+                                        Giới hạn:
+                                        <ul>
+                                            <li>\( n &le; 17 \)</li>
+                                        </ul>
+                                    </p>
+                                </section>
+                                <details class="solution">
+                                    <summary class="solution-complete">Solution</summary>
+                                    <div class="content">
+                                        <p>
+                                            Đây là dạng bài cập nhập trên điểm và truy vấn trên đoạn nên chúng ta sẽ dùng Segment tree bình thường nhưng có thay đổi nhẹ.
+                                            Ta có các nhận xét sau:
+                                            <ul>
+                                                <li>Vì số lượng phần tử là lũy thừa của 2 nên ST sẽ là <b>cây nhị phân hoàn hảo</b></li>
+                                                <li>Việc tạo mảng mới tương tương với việc đi lên một tầng trên ST</li>
+                                            </ul>
+                                            Từ nhận xét trên, ta có lời giải như sau:
+                                            Xây dụng ST trên mảng \( A \) với mỗi node \( u \) trên cây được tính từ node bên trái \( v \) và node bên phải \( t \) bằng phép tính \( or \) hoặc \( xor \) tùy theo tầng của node \( u \).
+                                        </p>
+                                    </div>
+                                </details>
+                            </section>
+                        </p>
                     </article>
                     <article>
                         <h3>Algorithm optimization</h3>
