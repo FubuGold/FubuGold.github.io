@@ -1,19 +1,53 @@
 @import url("root.css");
 
+body * {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    font-size: calc(1rem + 0.1dvw);
+}
+
+main {
+    padding-block: 2rem;
+    position: relative;
+    width: 80% !important;
+    margin: 0 auto !important;
+}
+
+aside {
+    position: fixed;
+}
+
+pre code {
+    font-size: 1.2em !important;
+    font-weight: 550 !important;
+}
+
 #doc {
     width: 60%;
     margin: 0 auto;
 }
+
+#outline {
+    overflow: auto;
+    padding-inline: 0.5rem;
+    font-size: calc(1rem + 0.1dvw);
+    & a {
+        width: 100%;
+        display: block;
+        overflow: hidden;
+        white-space: pre;
+        text-overflow: ellipsis;
+    }
+}
+
 
 p,
 .katex * {
     font-size: 1.05em;
 }
 
-pre code {
-    font-size: 1.2em !important;
-    font-weight: 500 !important;
-}
 
 .markdown-body mark {
     padding: .2em .4em;
@@ -33,22 +67,4 @@ pre code {
 
 .solution-complete {
     color: var(--accept);
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    outline: 0;
-    box-sizing: border-box;
-}
-
-main {
-    padding-block: 2rem;
-    position: relative;
-    width: 80% !important;
-    margin: 0 auto !important;
-}
-
-aside {
-    position: fixed;
 }

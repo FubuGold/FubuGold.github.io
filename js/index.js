@@ -30,11 +30,13 @@ const doc = document.querySelector("#doc");
 const aside = document.querySelector("aside");
 const outline = aside.querySelector("#outline");
 
-outline.style.textOverflow = "ellipsis";
-console.log(aside);
-aside.style.maxWidth = `${window.getComputedStyle(doc).marginLeft}px`;
+resizeSidebar = () => {
+    outline.style.width = window.getComputedStyle(doc).marginLeft;
 
-outline.querySelectorAll("*").forEach((item) => {
-    item.style.listStyleType = "none";
-    item.style.paddingLeft = "0.5em";
-});
+    outline.querySelectorAll("*").forEach((item) => {
+        item.style.listStyleType = "none";
+        item.style.paddingLeft = "0.5em";
+    });
+};
+document.addEventListener("DOMContentLoaded", resizeSidebar);
+window.addEventListener("resize", resizeSidebar);
