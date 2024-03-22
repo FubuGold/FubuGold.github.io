@@ -6,7 +6,19 @@ article.markdown-body {
     padding-block: 2rem;
 }
 
+p, .katex * {
+    font-size: 1.05em;
+}
+
 pre code {
-    font-size: 1.2rem !important;
-    font-weight: 550 !important;
+    font-size: 1.2em !important;
+    font-weight: 500 !important;
+}
+
+.markdown-body mark {
+    padding: .2em .4em;
+    margin: 0;
+    white-space: break-spaces;
+    background-color: rgba(110, 118, 129, .4);
+    border-radius: 6px;
 }

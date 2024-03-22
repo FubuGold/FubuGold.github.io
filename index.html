@@ -38,6 +38,42 @@
                 <h2>Fundamental of Segment Tree</h2>
                 <article>
                     <h3>Concept</h3>
+                    <section>
+                        <p>
+                            Bài toán 1: Cho mảng \(A\) có \(n\) phần tử. Tìm \(min\) của của mảng \(A\)
+                        </p>
+                        <pre><code class="hljs cpp">#include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+int main()
+{
+    int n, result = INT_MAX;
+    cin &gt;&gt; n;
+
+    for (int i = 0; i &lt; n; i++)
+    {
+        int temp;
+        cin &gt;&gt; temp;
+        result = min(result, temp);
+    }
+
+    cout &lt;&lt; result;
+}</code></pre>
+                        <ul>
+                            <li>Time complexity: \(O(n)\)</li>
+                            <li>Space complexity: \(O(1)\)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <p>
+                            Bài toán 2: Cho mảng \( A \) có \(n\) phần tử. Cho \(q\) truy vấn. Mỗi truy vấn có dạng:<br>
+                        <ul>
+                            <li><mark>\(p\ x\)</mark>: Update phần tử tại \(p\) thành \(x\)</li>
+                        </ul>
+                        Sau khi thực hiện \(q\) truy vấn, tìm \(min\) của mảng \(A\).
+                        </p>
+                    </section>
                 </article>
                 <article>
                     <h3>Walk on tree</h3>
