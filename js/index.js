@@ -11,9 +11,30 @@ function addID() {
 hljs.highlightAll();
 addID();
 tocbot.init({
-    tocSelector: ".toc",
-    contentSelector: ".markdown-body",
+    tocSelector: "article .toc",
+    contentSelector: "#doc",
     headingSelector: "h1, h2, h3",
     hasInnerContainers: true,
     orderedList: false,
+});
+
+tocbot.init({
+    tocSelector: "#outline",
+    contentSelector: "#doc",
+    headingSelector: "h1, h2, h3",
+    hasInnerContainers: true,
+    orderedList: false,
+});
+
+const doc = document.querySelector("#doc");
+const aside = document.querySelector("aside");
+const outline = aside.querySelector("#outline");
+
+outline.style.textOverflow = "ellipsis";
+console.log(aside);
+aside.style.maxWidth = `${window.getComputedStyle(doc).marginLeft}px`;
+
+outline.querySelectorAll("*").forEach((item) => {
+    item.style.listStyleType = "none";
+    item.style.paddingLeft = "0.5em";
 });

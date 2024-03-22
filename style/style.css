@@ -1,12 +1,12 @@
 @import url("root.css");
 
-article.markdown-body {
+#doc {
     width: 60%;
     margin: 0 auto;
-    padding-block: 2rem;
 }
 
-p, .katex * {
+p,
+.katex * {
     font-size: 1.05em;
 }
 
@@ -35,3 +35,20 @@ pre code {
     color: var(--accept);
 }
 
+body {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+main {
+    padding-block: 2rem;
+    position: relative;
+    width: 80% !important;
+    margin: 0 auto !important;
+}
+
+aside {
+    position: fixed;
+}

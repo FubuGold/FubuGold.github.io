@@ -30,23 +30,26 @@
 </head>
 
 <body>
-    <article class="markdown-body">
-        <article>
-            <h1>Segment tree</h1>
-            <div class="toc"></div>
+    <main class="markdown-body">
+        <aside><div class="toc" id="outline"></div></aside>
+        <article id="doc">
             <article>
-                <h2>Fundamental of Segment Tree</h2>
+                <h1>Segment tree</h1>
+                <div class="toc"></div>
                 <article>
-                    <h3>Concept</h3>
-                    <section class="problem" id="bài-toán-1">
-                        <h4 class="problem-title">Bài toán 1</h4>
-                        <section class="problem-detail">
-                            <p>Cho mảng \(A\) có \(n\) phần tử. Tìm \(min(A)\)</p>
-                        </section>
-                        <details>
-                            <summary class="solution-complete">Solution</summary>
-                            <p> Duyệt qua toàn bộ mảng và tìm </p>
-                            <pre><code class="hljs cpp">int solve(int n)
+                    <h2>Fundamental of Segment Tree</h2>
+                    <article>
+                        <h3>Concept</h3>
+                        <section class="problem" id="bài-toán-1">
+                            <h4 class="problem-title">Bài toán 1</h4>
+                            <section class="problem-detail">
+                                <p>Cho mảng \(A\) có \(n\) phần tử. Tìm \(min(A)\)</p>
+                            </section>
+                            <details class="solution">
+                                <summary class="solution-complete">Solution</summary>
+                                <div class="content">
+                                    <p> Duyệt qua toàn bộ mảng và tìm </p>
+                                    <pre><code class="hljs cpp">int solve(int n)
 {
     int result = INT_MAX;
 
@@ -59,26 +62,31 @@
 
     return result;
 }</code></pre>
-                            <ul>
-                                <li>Time complexity: \(O(n)\)</li>
-                                <li>Space complexity: \(O(1)\)</li>
-                            </ul>
-                        </details>
-                    </section>
-                    <section class="problem" id="bài-toán-2">
-                        <h4 class="problem-title">Bài toán 2</h4>
-                        <section class="problem-detail">
-                            <p> 
-                                Cho mảng \( A \) có \(n\) phần tử. Cho \(q\) truy vấn. Mỗi truy vấn có dạng:<br>
-                                <ul>
-                                    <li><mark>\(p\ x\)</mark>: Update phần tử tại \(p\) thành \(x\). Tính \(min(A)\) </li>
-                                </ul>
-                            </p>
+                                    <ul>
+                                        <li>Time complexity: \(O(n)\)</li>
+                                        <li>Space complexity: \(O(1)\)</li>
+                                    </ul>
+                                </div>
+                            </details>
                         </section>
-                        <details>
-                            <summary class="solution-fail">Bruteforce</summary>
-                            <p> Như <a href="#bài-toán-1">bài toán 1</a>, duyệt toàn bộ mảng và tính lại mỗi query</p>
-                            <pre><code class="hljs cpp">void solve(int n)
+                        <section class="problem" id="bài-toán-2">
+                            <h4 class="problem-title">Bài toán 2</h4>
+                            <section class="problem-detail">
+                                <p>
+                                    Cho mảng \( A \) có \(n\) phần tử. Cho \(q\) truy vấn. Mỗi truy vấn có dạng:<br>
+                                <ul>
+                                    <li><mark>\(p\ x\)</mark>: Update phần tử tại \(p\) thành \(x\). Tính \(min(A)\)
+                                    </li>
+                                </ul>
+                                </p>
+                            </section>
+                            <details class="solution">
+                                <summary class="solution-fail">Bruteforce</summary>
+                                <div class="content">
+                                    <p> Như <a href="#bài-toán-1">bài toán 1</a>, duyệt toàn bộ mảng và tính lại mỗi
+                                        query
+                                    </p>
+                                    <pre><code class="hljs cpp">void solve(int n)
 {
     for (int i = 0; i &lt; q; i++)
     {
@@ -95,15 +103,19 @@
     }
     return 0;
 }</code></pre>
-                            <ul>
-                                <li>Time complexity: <span class="solution-fail">\(O(n \times q)\)</span></li>
-                                <li>Space complexity: \(O(n)\)</li>
-                            </ul>
-                        </details>
-                        <details>
-                            <summary class="solution-partial">Optimize #1</summary>
-                            <p> Chia đôi mảng. Sau đó tìm \(min\) của 2 nửa. Với mỗi query, xác định \(p\) thuộc phần nào của 2 nửa và tính lại phần đó.</p>
-                            <pre><code class="hljs cpp">vector&lt;int&gt; min_val(2, INT_MAX);
+                                    <ul>
+                                        <li>Time complexity: <span class="solution-fail">\(O(n \times q)\)</span></li>
+                                        <li>Space complexity: \(O(n)\)</li>
+                                    </ul>
+                                </div>
+                            </details>
+                            <details class="solution">
+                                <summary class="solution-partial">Optimize #1</summary>
+                                <div class="content">
+                                    <p> Chia đôi mảng. Sau đó tìm \(min\) của 2 nửa. Với mỗi query, xác định \(p\) thuộc
+                                        phần
+                                        nào của 2 nửa và tính lại phần đó.</p>
+                                    <pre><code class="hljs cpp">vector&lt;int&gt; min_val(2, INT_MAX);
 
 void preprocess()
 {
@@ -141,40 +153,44 @@ void solve(int q)
         cout &lt;&lt; min(min_val[0], min_val[1]) &lt;&lt; &quot;\n&quot;;
     }
 }</code></pre>
-                        <ul>
-                            <li>Time complexity: <span class="solution-partial">\(O(\frac{n}{2} \times q)\)</span></li>
-                            <li>Space complexity: \(O(n)\)</li>
-                        </ul>
-                        </details>
-                    </section>
+                                    <ul>
+                                        <li>Time complexity: <span class="solution-partial">\(O(\frac{n}{2} \times
+                                                q)\)</span>
+                                        </li>
+                                        <li>Space complexity: \(O(n)\)</li>
+                                    </ul>
+                                </div>
+                            </details>
+                        </section>
+                    </article>
+                    <article>
+                        <h3>Walk on tree</h3>
+                    </article>
+                    <article>
+                        <h3>Lazy propagation</h3>
+                    </article>
                 </article>
                 <article>
-                    <h3>Walk on tree</h3>
-                </article>
-                <article>
-                    <h3>Lazy propagation</h3>
-                </article>
-            </article>
-            <article>
-                <h2>Application</h2>
-                <article>
-                    <h3>Obvious range query</h3>
-                </article>
-                <article>
-                    <h3>Algorithm optimization</h3>
-                </article>
-                <article>
-                    <h3>Multiple segment trees</h3>
-                </article>
-                <article>
-                    <h3>Graph</h3>
-                </article>
-                <article>
-                    <h3>Data structure</h3>
+                    <h2>Application</h2>
+                    <article>
+                        <h3>Obvious range query</h3>
+                    </article>
+                    <article>
+                        <h3>Algorithm optimization</h3>
+                    </article>
+                    <article>
+                        <h3>Multiple segment trees</h3>
+                    </article>
+                    <article>
+                        <h3>Graph</h3>
+                    </article>
+                    <article>
+                        <h3>Data structure</h3>
+                    </article>
                 </article>
             </article>
         </article>
-    </article>
+    </main>
 </body>
 
 </html>
