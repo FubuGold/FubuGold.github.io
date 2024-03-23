@@ -268,6 +268,7 @@ void solve(int q)
                                 <summary class="solution-complete">Solution</summary>
                                 <div class="content">
                                     <p>
+                                        Source: <a href="https://codeforces.com/contest/339/problem/D">Codeforces 597C</a> <br>
                                         Đây là dạng bài cập nhập trên điểm và truy vấn trên đoạn nên chúng ta sẽ dùng
                                         Segment tree bình thường nhưng có thay đổi nhẹ.
                                         Ta có các nhận xét sau:
@@ -280,6 +281,7 @@ void solve(int q)
                                     Xây dụng ST trên mảng \( A \) với mỗi node \( u \) trên cây được tính từ node bên
                                     trái \( v \) và node bên phải \( t \) bằng phép tính \( or \) hoặc \( xor \) tùy
                                     theo tầng của node \( u \).
+                                    </p>
                                     <details class="solution">
                                         <summary class="solution-complete">Dùng mảng</summary>
                                         <pre><code class="hljs cpp">#include &lt;bits/stdc++.h&gt;
@@ -320,7 +322,6 @@ int main()
     }
 }</code></pre>
                                     </details>
-                                    </p>
                                 </div>
                             </details>
                         </section>
@@ -339,12 +340,57 @@ int main()
                                     dần gồm \( k + 1 \) phần tử.
                                     <b>Lưu ý:</b> Mảng con của mảng \( A \) là mảng được tạo từ việc xóa đi \( 0 \) hoặc
                                     một số phần tử trong mảng \( A \) mà không thay đổi vị trí của chúng.
+                                    Giới hạn:
+                                    <ul>
+                                        <li>\( 1 &le; n &le; {10}^5 \)</li>
+                                        <li>\( 0 &le; k &le; 10 \)</li>
+                                        <li>\( 1 &le; A_i &le; n \)</li>
+                                    </ul>
                                 </p>
                             </section>
+                            <details class="solution">
+                                <summary class="solution-complete">Solution</summary>
+                                <div class="content">
+                                    <p>
+                                        Giả sử ta có mảng \( B \) là mảng con tăng dần của \( A \) gồm \( t \) phần tử \( (t &lt; k) \). <br>
+                                        Xét phần tử \( x \) của \( A \). Ta chỉ có thể thêm \( x \) vào \( B \) khi và chỉ khi \( x &ge; B_t \). <br>
+                                        Vậy số cách tạo mảng con tăng dần với phần tử \( A_i \) ở cuối có độ dài \( t \) được tính từ số cách tạo mảng con tăng dần với phần tử cuối có giá trị nhỏ hơn \( A_i \) có độ dài \( t-1 \). <br>
+                                        Gọi \( dp[v][t] \) là số cách tạo ra mảng con tăng dần với giá trị cuối là \( v \) và dộ dài \( t \).
+                                        Ta sẽ duyệt qua mảng \( A \) để tính \( dp[v][t] \): <br>
+                                        \( dp[A_i][t] = \sum dp[v][t-1] \  &forall; \  v &lt; A_i \) <br>
+                                        <br>
+                                        Ta nhận thấy việc tính \( dp[A_i][t] \) sẽ tốn độ phức tạp thời gian là \( O(n^2) \), bị TLE. <br>
+                                        Vì thế để tính nhanh hơn thì chúng ta có thể dùng ST để tối ưu thời gian còn \( O(nlogn) \).
+                                    </p>
+                                    <details class="solution">
+                                        <summary class="solution-complete">Code mẫu</summary>
+                                        <pre><code class="hljs cpp">
+
+                                        </code></pre>
+                                    </details>
+                                </div>
+                            </details>
                         </section>
                     </article>
                     <article>
                         <h3>Multiple segment trees</h3>
+                        <p>
+                            Đây là những bài toán mà lời giải dùng nhiều Segment tree để giải.
+                            Thường những bài này sẽ liên quan đến <b>bit</b> và <b>phép toán bit</b> hoặc <b>xâu</b> gồm các chữ cái Tiếng Anh.
+                        </p>
+                        <section class="problem">
+                            <h4 class="problem-title">Bài toán ví dụ:</h4>
+                            <section class="problem-detail">
+                                <p>
+                                    Cho mảng \( A \) gồm \( n \) phần tử. Cho 2 loại truy vấn sau:
+                                    <ul>
+                                        <li><mark>\( 1 \ l \ r \)</mark>: Tính tổng \( A_l + A_{l+1} + ... + A_r\)</li>
+                                        <li><mark>\( 2 \ l \ r \ x \)</mark>: \( xor \) mỗi giá trị trong đoạn \( [l,r] \) của mảng \( A \)</li>
+                                    </ul>
+                                    Với mỗi truy vấn loại 1 thì in ra đáp án trên mỗi dòng.
+                                </p>
+                            </section>
+                        </section>
                     </article>
                     <article>
                         <h3>Graph</h3>
