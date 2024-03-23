@@ -365,8 +365,8 @@ int main()
                                     <details class="solution">
                                         <summary class="solution-complete">Code mẫu</summary>
                                         <pre><code class="hljs cpp">
-
-                                        </code></pre>
+                                            
+</code></pre>
                                     </details>
                                 </div>
                             </details>
@@ -387,13 +387,51 @@ int main()
                                         <li><mark>\( 1 \ l \ r \)</mark>: Tính tổng \( A_l + A_{l+1} + ... + A_r\)</li>
                                         <li><mark>\( 2 \ l \ r \ x \)</mark>: \( xor \) mỗi giá trị trong đoạn \( [l,r] \) của mảng \( A \)</li>
                                     </ul>
-                                    Với mỗi truy vấn loại 1 thì in ra đáp án trên mỗi dòng.
+                                    Với mỗi truy vấn loại 1 thì in ra đáp án trên mỗi dòng. <br>
+                                    Giới hạn:
+                                    <ul>
+                                        <li>\( 1 &le; n &le; {10}^5 \)</li>
+                                        <li>\( 0 &le; A_i &le; {10}^6 \)</li>
+                                        <li>\( 1 &le; l &le; r &le; n \)</li>
+                                        <li>\( 1 &le; x &le; {10}^6 \)</li>
+                                    </ul>
                                 </p>
                             </section>
                         </section>
+                        <details class="solution">
+                            <summary class="solution-complete">Solution</summary>
+                            <div class="content">
+                                <p>
+                                    Ta nhận thấy bài này sử dụng Segment tree. Nhưng nếu chỉ dùng 1 ST lazy propagation thì sẽ khó xử lí từng node trong cây. <br>
+                                    Đồng thời, phép toán \( xor \) chỉ ảnh hưởng đến từng cặp bit tương ứng, không gây ảnh hưởng đến các bit xung quanh nó. <br>
+                                    Vì thế, thay vì 1 ST để quản lí hết mảng \( A \) thì chúng ta sẽ dùng nhiều ST, mỗi ST sẽ quản lí 1 bit trong \( A \). Cụ thể hơn là cho mảng \( S \) có \( k \) phần tử chứa các ST, \( S_i \) sẽ quản lí bit thứ \( i \) của mỗi phần tử trong mảng \( A \). <br>
+                                    <br>
+                                    Vậy cần bao nhiêu ST là đủ ? <br>
+                                    => Ta có giới hạn \( A_i \) và \( x \) là \( {10}^6 \) => \( log_2({10}^6) &approx; 20\) => Tối đa dùng tới 20 bit => Cần khoảng 21 ST để lưu mảng \( A \) theo từng bit. <br>
+                                    <br>
+                                    Để tính truy vấn \( 1 \), ta sẽ tính tổng số bit thứ i * \( 2^i \): <br>
+                                    $$ ans = \sum_{i=0}^{20} S_i.query(l,r) * 2^i $$
+                                </p>
+                                <details class="solution">
+                                    <summary class="solution-complete">Source code</summary>
+                                    <pre><code class="hljs cpp">
+
+</code></pre>
+                                </details>
+                            </div>
+                        </details>
                     </article>
                     <article>
                         <h3>Graph</h3>
+                        <p>
+                            Đây thường là bài toán liên quan đến cây có gốc. Thường trong những bài này, cây sẽ được trải phẳng bằng <b> Kỹ thuật HLD </b> hoặc <b>Phương pháp Đường đi Euler trên cây</b>.
+                            <section class="problem">
+                                <h4 class="problem-title">Bài toán ví dụ:</h4>
+                                <p class="problem-detail">
+                                    
+                                </p>
+                            </section>
+                        </p>
                     </article>
                     <article>
                         <h3>Data structure</h3>
