@@ -200,10 +200,15 @@ void solve(int q)
                                         hợp</a>,
                                     tức là kết quả không bị ảnh hưởng bởi thứ tự của các tham số, ta có tính chất
                                     sau: \(A[l..r]\ =\ f(A[l..mid],\ A[{(mid + 1)}..r])\). Ta tiếp tục chia đôi mảng,
-                                    áp dụng tính chất và lưu lại kết quả cho đến khi chiều dài đoạn là \(1\).<br>
+                                    áp dụng tính chất và lưu lại kết quả cho đến khi chiều dài đoạn là \(1\). Chú ý 
+                                    rẳng các đoạn này có chiều dài lại lũy thừa của 2.<br>
 
                                     <h4>Calculate: </h4>
-
+                                    
+                                    Ta có thể dễ nhận ra, với mọi đoạn \(A[l..r]\), ta có thể phân tích thành các đoạn 
+                                    liên tiếp có chiều dài là lũy thừa của 2. Sử dụng tính chất đó, ta có thể phân tích
+                                    \(A[l..r]\) thành tập hợp các đoạn mà ta đã tính trước kết quả. Kết hợp các kết quả 
+                                    lại, ta sẽ được kết quả của phép tính \(f(A[l..r])\).
                                     
 
                                     </p>
