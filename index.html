@@ -268,7 +268,7 @@ void solve(int q)
                                 <summary class="solution-complete">Solution</summary>
                                 <div class="content">
                                     <p>
-                                        Source: <a href="https://codeforces.com/contest/339/problem/D">Codeforces 597C</a> <br>
+                                        Source: <a href="https://codeforces.com/contest/339/problem/D">Codeforces 339D</a> <br>
                                         Đây là dạng bài cập nhập trên điểm và truy vấn trên đoạn nên chúng ta sẽ dùng
                                         Segment tree bình thường nhưng có thay đổi nhẹ.
                                         Ta có các nhận xét sau:
@@ -352,6 +352,7 @@ int main()
                                 <summary class="solution-complete">Solution</summary>
                                 <div class="content">
                                     <p>
+                                        Source: <a href="https://codeforces.com/contest/597/problem/C">Codeforces 597C</a> <br>
                                         Giả sử ta có mảng \( B \) là mảng con tăng dần của \( A \) gồm \( t \) phần tử \( (t &lt; k) \). <br>
                                         Xét phần tử \( x \) của \( A \). Ta chỉ có thể thêm \( x \) vào \( B \) khi và chỉ khi \( x &ge; B_t \). <br>
                                         Vậy số cách tạo mảng con tăng dần với phần tử \( A_i \) ở cuối có độ dài \( t \) được tính từ số cách tạo mảng con tăng dần với phần tử cuối có giá trị nhỏ hơn \( A_i \) có độ dài \( t-1 \). <br>
@@ -380,9 +381,9 @@ int main()
                         </p>
                         <section class="problem">
                             <h4 class="problem-title">Bài toán ví dụ:</h4>
-                            <section class="problem-detail">
+                            <section class="problem-detail" id="multiple-segment-tree">
                                 <p>
-                                    Cho mảng \( A \) gồm \( n \) phần tử. Cho 2 loại truy vấn sau:
+                                    Cho mảng \( A \) gồm \( n \) phần tử. Cho \( q \) truy vấn gồm 2 loại sau:
                                     <ul>
                                         <li><mark>\( 1 \ l \ r \)</mark>: Tính tổng \( A_l + A_{l+1} + ... + A_r\)</li>
                                         <li><mark>\( 2 \ l \ r \ x \)</mark>: \( xor \) mỗi giá trị trong đoạn \( [l,r] \) của mảng \( A \)</li>
@@ -391,6 +392,7 @@ int main()
                                     Giới hạn:
                                     <ul>
                                         <li>\( 1 &le; n &le; {10}^5 \)</li>
+                                        <li>\( 1 &le; q &le; {10}^5 \)</li>
                                         <li>\( 0 &le; A_i &le; {10}^6 \)</li>
                                         <li>\( 1 &le; l &le; r &le; n \)</li>
                                         <li>\( 1 &le; x &le; {10}^6 \)</li>
@@ -402,6 +404,7 @@ int main()
                             <summary class="solution-complete">Solution</summary>
                             <div class="content">
                                 <p>
+                                    Source: <a href="https://codeforces.com/contest/242/problem/E">Codeforces 242E</a> <br>
                                     Ta nhận thấy bài này sử dụng Segment tree. Nhưng nếu chỉ dùng 1 ST lazy propagation thì sẽ khó xử lí từng node trong cây. <br>
                                     Đồng thời, phép toán \( xor \) chỉ ảnh hưởng đến từng cặp bit tương ứng, không gây ảnh hưởng đến các bit xung quanh nó. <br>
                                     Vì thế, thay vì 1 ST để quản lí hết mảng \( A \) thì chúng ta sẽ dùng nhiều ST, mỗi ST sẽ quản lí 1 bit trong \( A \). Cụ thể hơn là cho mảng \( S \) có \( k \) phần tử chứa các ST, \( S_i \) sẽ quản lí bit thứ \( i \) của mỗi phần tử trong mảng \( A \). <br>
@@ -424,17 +427,58 @@ int main()
                     <article>
                         <h3>Graph</h3>
                         <p>
-                            Đây thường là bài toán liên quan đến cây có gốc. Thường trong những bài này, cây sẽ được trải phẳng bằng <b> Kỹ thuật HLD </b> hoặc <b>Phương pháp Đường đi Euler trên cây</b>.
-                            <section class="problem">
+                            Đây thường là bài toán liên quan đến cây có gốc. Thường trong những bài này, cây sẽ được trải phẳng bằng <a href="https://vnoi.info/wiki/algo/data-structures/heavy-light-decomposition.md">Kỹ thuật HLD</a> hoặc <a href="https://vnoi.info/wiki/algo/graph-theory/euler-tour-on-tree.md">Phương pháp Đường đi Euler trên cây</a>.
+                            <section class="problem" id="graph-theory">
                                 <h4 class="problem-title">Bài toán ví dụ:</h4>
                                 <p class="problem-detail">
-                                    
+                                    Cho cây gồm \( n \) node, có gốc là \( 1 \). Tất cả node ban đầu có giá trị bằng \( 0 \) Cho \( q \) truy vấn gồm 2 loại sau:
+                                    <ul>
+                                        <li><mark>\( 1 \ u \ x \)</mark>: Gán node \( u \) và tất cả node con của \( u \) bằng \( x \)</li>
+                                        <li><mark>\( 2 \ v\)</mark>: Tìm giá trị tại node \( v \)</li>
+                                    </ul>
+                                    Với mỗi truy vấn loại \( 2 \), in ra đáp án.\
+                                    Giới hoạn
                                 </p>
                             </section>
+                            <details class="solution">
+                                <summary class="solution-complete">Solution</summary>
+                                <div class="content">
+                                    <p>
+                                        Ta nhận thấy chúng ta có thể dùng Segment tree để xử lí truy vấn. Nhưng vấn đề ở đây là làm sao biểu diễn các node con để chúng nằm liền kề nhau để sử dụng ST. <br>
+                                        May thay, chúng ta có thể sử dụng <b>Phương pháp Đường đi Euler trên cây</b> để biểu diễn các node. Cụ thể hơn vì sao thì mọi người có thể đọc về <b>Phương pháp Đường đi Euler trên cây</b> <br>
+                                        Từ đó chúng ta có thể dùng Segment tree trên mảng các node trên cây được trải phẳng.
+                                    </p>
+                                    <details class="solution">
+                                        <summary class="solution-complete">Source code</summary>
+                                        <pre><code class="hljs cpp">
+
+</code></pre>
+                                    </details>
+
+                                </div>
+                            </details>
                         </p>
                     </article>
                     <article>
                         <h3>Data structure</h3>
+                        <p>
+                            Đây thường là những bài toán mà chúng ta sẽ sử dụng Segment tree mà mỗi node lưu một cấu trúc dữ liệu để giải. 
+                            Thường những bài cơ bản thuộc dạng này sẽ không có truy vấn cập nhập vì việc cập nhập sẽ tốn hơn \( O(logn) \) để cập nhập. 
+                            Các cấu trúc dữ liệu thường dùng là <b>vector (Merge sort tree), set, multiset, map, ...</b> <br>
+                            Những bài toán dạng này thường có giới hạn thời gian và bộ nhớ cao hơn bình thường một chút, hoặc giới hạn số lượng phần tử thấp hơn bình thường.
+                        </p>
+                        <section class="problem" id="data-structures">
+                            <h4 class="problem-title">Bài toán ví dụ:</h4>
+                            <p class="problem-detail">
+                                
+                            </p>
+                        </section>
+                        <details class="solution">
+                            <summary class="solution-complete">Solution</summary>
+                            <p>
+
+                            </p>
+                        </details>
                     </article>
                 </article>
             </article>
