@@ -322,6 +322,59 @@ int main()
     }
 }</code></pre>
                                     </details>
+                                    <details class="solution">
+                                        <summary class="solution-complete">Dùng pointer</summary>
+                                        <pre><code class="hljs cpp">#include &lt;bits/stdc++.h&gt;
+
+#define N int((1 &lt;&lt; 17) + 10)
+#define S int(4 * N + 10)
+
+using namespace std;
+
+struct Node
+{
+    int val;
+    bool ok = 0;
+    Node *u, *v;
+};
+
+int n, m, a[N], ok[S];
+Node *seg = new Node;
+
+void Build(Node *p, int l, int r)
+{
+	int m = l + r &gt;&gt; 1;
+	if (l == r){p-&gt;val = a[m]; p-&gt;ok = 1; return;}
+	Node *u = new Node, *v = new Node;
+	p-&gt;u = u; p-&gt;v = v;
+	Build(u, l, m); Build(v, m + 1, r);
+	if (u-&gt;ok) p-&gt;val = u-&gt;val | v-&gt;val; else p-&gt;val = u-&gt;val ^ v-&gt;val, p-&gt;ok = 1;
+}
+
+void Update(Node *p, int i, int x, int l, int r)
+{
+	int m = l + r &gt;&gt; 1;
+	if (l == r){p-&gt;val = x; return;}
+	Node *u = p-&gt;u, *v = p-&gt;v;
+	if (i &lt;= m) Update(u, i, x, l, m); else Update(v, i, x, m + 1, r);
+	if (u-&gt;ok) p-&gt;val = u-&gt;val | v-&gt;val; else p-&gt;val = u-&gt;val ^ v-&gt;val;
+}
+
+int main()
+{
+	cin.tie(0)-&gt;sync_with_stdio(0);
+	cin &gt;&gt; n &gt;&gt; m; for (int i = 1; i &lt;= 1 &lt;&lt; n; ++i) cin &gt;&gt; a[i];
+	Build(seg, 1, 1 &lt;&lt; n);
+	while (m--)
+	{
+		int i, x; cin &gt;&gt; i &gt;&gt; x;
+		Update(seg, i, x, 1, 1 &lt;&lt; n);
+		cout &lt;&lt; seg-&gt;val &lt;&lt; &quot;\n&quot;;
+	}
+}
+
+</code></pre>
+                                    </details>
                                 </div>
                             </details>
                         </section>
@@ -339,7 +392,7 @@ int main()
                                     Cho mảng \( A \) gồm \( n \) phần tử khác nhau đôi một. Đếm số lượng mảng con tăng
                                     dần gồm \( k + 1 \) phần tử.
                                     <b>Lưu ý:</b> Mảng con của mảng \( A \) là mảng được tạo từ việc xóa đi \( 0 \) hoặc
-                                    một số phần tử trong mảng \( A \) mà không thay đổi vị trí của chúng.
+                                    một số phần tử trong mảng \( A \) mà không thay đổi vị trí của chúng. <br>
                                     Giới hạn:
                                     <ul>
                                         <li>\( 1 &le; n &le; {10}^5 \)</li>
@@ -436,8 +489,13 @@ int main()
                                         <li><mark>\( 1 \ u \ x \)</mark>: Gán node \( u \) và tất cả node con của \( u \) bằng \( x \)</li>
                                         <li><mark>\( 2 \ v\)</mark>: Tìm giá trị tại node \( v \)</li>
                                     </ul>
-                                    Với mỗi truy vấn loại \( 2 \), in ra đáp án.\
-                                    Giới hoạn
+                                    Với mỗi truy vấn loại \( 2 \), in ra đáp án. <br>
+                                    Giới hạn:
+                                    <ul>
+                                        <li>\( 1 &le; n &le; {10}^5 \)</li>
+                                        <li>\( 1 &le; q &le; {10}^5 \)</li>
+                                        <li>\( 1 &le; A_i,x &le; {10}^9 \)</li>
+                                    </ul>
                                 </p>
                             </section>
                             <details class="solution">
@@ -464,20 +522,42 @@ int main()
                         <p>
                             Đây thường là những bài toán mà chúng ta sẽ sử dụng Segment tree mà mỗi node lưu một cấu trúc dữ liệu để giải. 
                             Thường những bài cơ bản thuộc dạng này sẽ không có truy vấn cập nhập vì việc cập nhập sẽ tốn hơn \( O(logn) \) để cập nhập. 
-                            Các cấu trúc dữ liệu thường dùng là <b>vector (Merge sort tree), set, multiset, map, ...</b> <br>
+                            Các cấu trúc dữ liệu thường dùng là <b>vector, set, multiset, map, ...</b> <br>
                             Những bài toán dạng này thường có giới hạn thời gian và bộ nhớ cao hơn bình thường một chút, hoặc giới hạn số lượng phần tử thấp hơn bình thường.
                         </p>
                         <section class="problem" id="data-structures">
                             <h4 class="problem-title">Bài toán ví dụ:</h4>
                             <p class="problem-detail">
-                                
+                                Cho mảng \( A \) có \( n \). Cho \( q \) truy vấn gồm 2 loại như sau:
+                                <ul>
+                                    <li>\( 1 \ i \ v \): Gán phần tử \( A_i \) bằng \( v \)</li>
+                                    <li>\( 2 \ l \ r \ k \): Tìm số nhỏ nhất lớn hơn hoặc bằng \( k \) trong đoạn \( [l,r] \) của mảng \( A \)</li>
+                                </ul>
+                                Với mỗi truy vấn loại 2 in ra đáp án. <br>
+                                Giới hạn: 
+                                <ul>
+                                    <li>\( 1 &le; n,q &le; {10}^5 \)</li>
+                                    <li>\( -{10}^5 &le; A_i &le; {10}^5 \)</li>
+                                    <li>\( 1 &le; l &le; r &le; n \)</li>
+                                </ul>
+                                Giới hạn thời gian: \( 3s \) <br>
+                                Giới hạn bộ nhớ: \( 256M \)
                             </p>
                         </section>
                         <details class="solution">
                             <summary class="solution-complete">Solution</summary>
-                            <p>
+                            <div class="content">
+                                <p>
+                                    Source: <a href="https://oj.vnoi.info/problem/segtree_itds1">VNOI Edu ST ITDS1</a> <br>
+                                    Ta thấy bài toán này giống như việc dùng hàm <b>upper_bound</b> trong đoạn \( [l,r] \). Nhưng khi đó chúng ta phải sắp xếp lại đoạn \( [l,r] \) rồi mới <b>upper_bound</b>, thời gian chạy bị chậm (\( O(nlogn) \)). Thay vì ta dùng trực tiếp trên đoạn \( [l,r] \), ta có thể chia nhỏ đoạn \( [l,r] \) ra và lấy min của kết quả hàm <b>upper_bound</b> giữa các đoạn. Như vậy, ta có thể dùng Segment tree với <b>multiset</b> để giải bài này. Lí do dùng multiset vì để dễ thực hiện truy vấn 1.
+                                </p>
+                                <details class="solution">
+                                    <summary class="solution-complete">Solution</summary>
+                                    <pre><code class="hljs cpp">
 
-                            </p>
+</code></pre>
+                                </details>
+                            </div>
                         </details>
                     </article>
                 </article>
