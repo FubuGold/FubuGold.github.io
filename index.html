@@ -200,16 +200,16 @@ void solve(int q)
                                         hợp</a>,
                                     tức là kết quả không bị ảnh hưởng bởi thứ tự của các tham số, ta có tính chất
                                     sau: \(A[l..r]\ =\ f(A[l..mid],\ A[{(mid + 1)}..r])\). Ta tiếp tục chia đôi mảng,
-                                    áp dụng tính chất và lưu lại kết quả cho đến khi chiều dài đoạn là \(1\). Chú ý 
+                                    áp dụng tính chất và lưu lại kết quả cho đến khi chiều dài đoạn là \(1\). Chú ý
                                     rẳng các đoạn này có chiều dài lại lũy thừa của 2.<br>
 
                                     <h4>Calculate: </h4>
-                                    
-                                    Ta có thể dễ nhận ra, với mọi đoạn \(A[l..r]\), ta có thể phân tích thành các đoạn 
+
+                                    Ta có thể dễ nhận ra, với mọi đoạn \(A[l..r]\), ta có thể phân tích thành các đoạn
                                     liên tiếp có chiều dài là lũy thừa của 2. Sử dụng tính chất đó, ta có thể phân tích
-                                    \(A[l..r]\) thành tập hợp các đoạn mà ta đã tính trước kết quả. Kết hợp các kết quả 
+                                    \(A[l..r]\) thành tập hợp các đoạn mà ta đã tính trước kết quả. Kết hợp các kết quả
                                     lại, ta sẽ được kết quả của phép tính \(f(A[l..r])\).
-                                    
+
 
                                     </p>
                                 </div>
@@ -221,6 +221,38 @@ void solve(int q)
                     </article>
                     <article>
                         <h3>Walk on tree</h3>
+                        <section class="problem" id="walk-on-tree">
+                            <h4 class="problem-title">Bài toán:</h4>
+                            <section class="problem-detail">
+                                <p>
+                                    Cho dãy \( n \) số nguyên. Trong quá trình thực hiện, các phần tử được đánh số \(
+                                    1,2,...,k \), với \( k \) là số phần tử hiện tại. <br>
+                                    Cho dãy \( n \) số nguyên \( p \), với \( p_i \) là vị trí của phần tử cần bị xóa.
+                                    <br>
+                                    In ra các phần tử theo thứ tự bị xóa. <br>
+                                    Giới hạn:
+                                <ul>
+                                    <li>\( 1 &le; n &le; 2*{10}^5 \)</li>
+                                    <li>\( 1 &le; x_i &le; {10}^9 \)</li>
+                                    <li>\( 1 &le; p_i &le; n - i + 1 \)</li>
+                                </ul>
+                                </p>
+                            </section>
+                            <details class="solution">
+                                <summary class="solution-complete">Solution</summary>
+                                <div class="content">
+                                    <p>
+
+                                    </p>
+                                    <details class="solution">
+                                        <summary class="solution-partial">Segement tree + Binary search</summary>
+                                    </details>
+                                    <details class="solution">
+                                        <summary class="solution-complete">Walk on tree</summary>
+                                    </details>
+                                </div>
+                            </details>
+                        </section>
                     </article>
                     <article>
                         <h3>Lazy propagation</h3>
@@ -268,7 +300,8 @@ void solve(int q)
                                 <summary class="solution-complete">Solution</summary>
                                 <div class="content">
                                     <p>
-                                        Source: <a href="https://codeforces.com/contest/339/problem/D">Codeforces 339D</a> <br>
+                                        Source: <a href="https://codeforces.com/contest/339/problem/D">Codeforces
+                                            339D</a> <br>
                                         Đây là dạng bài cập nhập trên điểm và truy vấn trên đoạn nên chúng ta sẽ dùng
                                         Segment tree bình thường nhưng có thay đổi nhẹ.
                                         Ta có các nhận xét sau:
@@ -394,27 +427,35 @@ int main()
                                     <b>Lưu ý:</b> Mảng con của mảng \( A \) là mảng được tạo từ việc xóa đi \( 0 \) hoặc
                                     một số phần tử trong mảng \( A \) mà không thay đổi vị trí của chúng. <br>
                                     Giới hạn:
-                                    <ul>
-                                        <li>\( 1 &le; n &le; {10}^5 \)</li>
-                                        <li>\( 0 &le; k &le; 10 \)</li>
-                                        <li>\( 1 &le; A_i &le; n \)</li>
-                                    </ul>
+                                <ul>
+                                    <li>\( 1 &le; n &le; {10}^5 \)</li>
+                                    <li>\( 0 &le; k &le; 10 \)</li>
+                                    <li>\( 1 &le; A_i &le; n \)</li>
+                                </ul>
                                 </p>
                             </section>
                             <details class="solution">
                                 <summary class="solution-complete">Solution</summary>
                                 <div class="content">
                                     <p>
-                                        Source: <a href="https://codeforces.com/contest/597/problem/C">Codeforces 597C</a> <br>
-                                        Giả sử ta có mảng \( B \) là mảng con tăng dần của \( A \) gồm \( t \) phần tử \( (t &lt; k) \). <br>
-                                        Xét phần tử \( x \) của \( A \). Ta chỉ có thể thêm \( x \) vào \( B \) khi và chỉ khi \( x &ge; B_t \). <br>
-                                        Vậy số cách tạo mảng con tăng dần với phần tử \( A_i \) ở cuối có độ dài \( t \) được tính từ số cách tạo mảng con tăng dần với phần tử cuối có giá trị nhỏ hơn \( A_i \) có độ dài \( t-1 \). <br>
-                                        Gọi \( dp[v][t] \) là số cách tạo ra mảng con tăng dần với giá trị cuối là \( v \) và dộ dài \( t \).
+                                        Source: <a href="https://codeforces.com/contest/597/problem/C">Codeforces
+                                            597C</a> <br>
+                                        Giả sử ta có mảng \( B \) là mảng con tăng dần của \( A \) gồm \( t \) phần tử
+                                        \( (t &lt; k) \). <br>
+                                        Xét phần tử \( x \) của \( A \). Ta chỉ có thể thêm \( x \) vào \( B \) khi và
+                                        chỉ khi \( x &ge; B_t \). <br>
+                                        Vậy số cách tạo mảng con tăng dần với phần tử \( A_i \) ở cuối có độ dài \( t \)
+                                        được tính từ số cách tạo mảng con tăng dần với phần tử cuối có giá trị nhỏ hơn
+                                        \( A_i \) có độ dài \( t-1 \). <br>
+                                        Gọi \( dp[v][t] \) là số cách tạo ra mảng con tăng dần với giá trị cuối là \( v
+                                        \) và dộ dài \( t \).
                                         Ta sẽ duyệt qua mảng \( A \) để tính \( dp[v][t] \): <br>
-                                        \( dp[A_i][t] = \sum dp[v][t-1] \  &forall; \  v &lt; A_i \) <br>
+                                        \( dp[A_i][t] = \sum dp[v][t-1] \ &forall; \ v &lt; A_i \) <br>
                                         <br>
-                                        Ta nhận thấy việc tính \( dp[A_i][t] \) sẽ tốn độ phức tạp thời gian là \( O(n^2) \), bị TLE. <br>
-                                        Vì thế để tính nhanh hơn thì chúng ta có thể dùng ST để tối ưu thời gian còn \( O(nlogn) \).
+                                        Ta nhận thấy việc tính \( dp[A_i][t] \) sẽ tốn độ phức tạp thời gian là \(
+                                        O(n^2) \), bị TLE. <br>
+                                        Vì thế để tính nhanh hơn thì chúng ta có thể dùng ST để tối ưu thời gian còn \(
+                                        O(nlogn) \).
                                     </p>
                                     <details class="solution">
                                         <summary class="solution-complete">Code mẫu</summary>
@@ -430,26 +471,28 @@ int main()
                         <h3>Multiple segment trees</h3>
                         <p>
                             Đây là những bài toán mà lời giải dùng nhiều Segment tree để giải.
-                            Thường những bài này sẽ liên quan đến <b>bit</b> và <b>phép toán bit</b> hoặc <b>xâu</b> gồm các chữ cái Tiếng Anh.
+                            Thường những bài này sẽ liên quan đến <b>bit</b> và <b>phép toán bit</b> hoặc <b>xâu</b> gồm
+                            các chữ cái Tiếng Anh.
                         </p>
                         <section class="problem">
                             <h4 class="problem-title">Bài toán ví dụ:</h4>
                             <section class="problem-detail" id="multiple-segment-tree">
                                 <p>
                                     Cho mảng \( A \) gồm \( n \) phần tử. Cho \( q \) truy vấn gồm 2 loại sau:
-                                    <ul>
-                                        <li><mark>\( 1 \ l \ r \)</mark>: Tính tổng \( A_l + A_{l+1} + ... + A_r\)</li>
-                                        <li><mark>\( 2 \ l \ r \ x \)</mark>: \( xor \) mỗi giá trị trong đoạn \( [l,r] \) của mảng \( A \)</li>
-                                    </ul>
-                                    Với mỗi truy vấn loại 1 thì in ra đáp án trên mỗi dòng. <br>
-                                    Giới hạn:
-                                    <ul>
-                                        <li>\( 1 &le; n &le; {10}^5 \)</li>
-                                        <li>\( 1 &le; q &le; {10}^5 \)</li>
-                                        <li>\( 0 &le; A_i &le; {10}^6 \)</li>
-                                        <li>\( 1 &le; l &le; r &le; n \)</li>
-                                        <li>\( 1 &le; x &le; {10}^6 \)</li>
-                                    </ul>
+                                <ul>
+                                    <li><mark>\( 1 \ l \ r \)</mark>: Tính tổng \( A_l + A_{l+1} + ... + A_r\)</li>
+                                    <li><mark>\( 2 \ l \ r \ x \)</mark>: \( xor \) mỗi giá trị trong đoạn \( [l,r] \)
+                                        của mảng \( A \)</li>
+                                </ul>
+                                Với mỗi truy vấn loại 1 thì in ra đáp án trên mỗi dòng. <br>
+                                Giới hạn:
+                                <ul>
+                                    <li>\( 1 &le; n &le; {10}^5 \)</li>
+                                    <li>\( 1 &le; q &le; {10}^5 \)</li>
+                                    <li>\( 0 &le; A_i &le; {10}^6 \)</li>
+                                    <li>\( 1 &le; l &le; r &le; n \)</li>
+                                    <li>\( 1 &le; x &le; {10}^6 \)</li>
+                                </ul>
                                 </p>
                             </section>
                         </section>
@@ -457,13 +500,21 @@ int main()
                             <summary class="solution-complete">Solution</summary>
                             <div class="content">
                                 <p>
-                                    Source: <a href="https://codeforces.com/contest/242/problem/E">Codeforces 242E</a> <br>
-                                    Ta nhận thấy bài này sử dụng Segment tree. Nhưng nếu chỉ dùng 1 ST lazy propagation thì sẽ khó xử lí từng node trong cây. <br>
-                                    Đồng thời, phép toán \( xor \) chỉ ảnh hưởng đến từng cặp bit tương ứng, không gây ảnh hưởng đến các bit xung quanh nó. <br>
-                                    Vì thế, thay vì 1 ST để quản lí hết mảng \( A \) thì chúng ta sẽ dùng nhiều ST, mỗi ST sẽ quản lí 1 bit trong \( A \). Cụ thể hơn là cho mảng \( S \) có \( k \) phần tử chứa các ST, \( S_i \) sẽ quản lí bit thứ \( i \) của mỗi phần tử trong mảng \( A \). <br>
+                                    Source: <a href="https://codeforces.com/contest/242/problem/E">Codeforces 242E</a>
+                                    <br>
+                                    Ta nhận thấy bài này sử dụng Segment tree. Nhưng nếu chỉ dùng 1 ST lazy propagation
+                                    thì sẽ khó xử lí từng node trong cây. <br>
+                                    Đồng thời, phép toán \( xor \) chỉ ảnh hưởng đến từng cặp bit tương ứng, không gây
+                                    ảnh hưởng đến các bit xung quanh nó. <br>
+                                    Vì thế, thay vì 1 ST để quản lí hết mảng \( A \) thì chúng ta sẽ dùng nhiều ST, mỗi
+                                    ST sẽ quản lí 1 bit trong \( A \). Cụ thể hơn là cho mảng \( S \) có \( k \) phần tử
+                                    chứa các ST, \( S_i \) sẽ quản lí bit thứ \( i \) của mỗi phần tử trong mảng \( A
+                                    \). <br>
                                     <br>
                                     Vậy cần bao nhiêu ST là đủ ? <br>
-                                    => Ta có giới hạn \( A_i \) và \( x \) là \( {10}^6 \) => \( log_2({10}^6) &approx; 20\) => Tối đa dùng tới 20 bit => Cần khoảng 21 ST để lưu mảng \( A \) theo từng bit. <br>
+                                    => Ta có giới hạn \( A_i \) và \( x \) là \( {10}^6 \) => \( log_2({10}^6) &approx;
+                                    20\) => Tối đa dùng tới 20 bit => Cần khoảng 21 ST để lưu mảng \( A \) theo từng
+                                    bit. <br>
                                     <br>
                                     Để tính truy vấn \( 1 \), ta sẽ tính tổng số bit thứ i * \( 2^i \): <br>
                                     $$ ans = \sum_{i=0}^{20} S_i.query(l,r) * 2^i $$
@@ -480,76 +531,97 @@ int main()
                     <article>
                         <h3>Graph</h3>
                         <p>
-                            Đây thường là bài toán liên quan đến cây có gốc. Thường trong những bài này, cây sẽ được trải phẳng bằng <a href="https://vnoi.info/wiki/algo/data-structures/heavy-light-decomposition.md">Kỹ thuật HLD</a> hoặc <a href="https://vnoi.info/wiki/algo/graph-theory/euler-tour-on-tree.md">Phương pháp Đường đi Euler trên cây</a>.
-                            <section class="problem" id="graph-theory">
-                                <h4 class="problem-title">Bài toán ví dụ:</h4>
-                                <p class="problem-detail">
-                                    Cho cây gồm \( n \) node, có gốc là \( 1 \). Tất cả node ban đầu có giá trị bằng \( 0 \) Cho \( q \) truy vấn gồm 2 loại sau:
-                                    <ul>
-                                        <li><mark>\( 1 \ u \ x \)</mark>: Gán node \( u \) và tất cả node con của \( u \) bằng \( x \)</li>
-                                        <li><mark>\( 2 \ v\)</mark>: Tìm giá trị tại node \( v \)</li>
-                                    </ul>
-                                    Với mỗi truy vấn loại \( 2 \), in ra đáp án. <br>
-                                    Giới hạn:
-                                    <ul>
-                                        <li>\( 1 &le; n &le; {10}^5 \)</li>
-                                        <li>\( 1 &le; q &le; {10}^5 \)</li>
-                                        <li>\( 1 &le; A_i,x &le; {10}^9 \)</li>
-                                    </ul>
-                                </p>
-                            </section>
-                            <details class="solution">
-                                <summary class="solution-complete">Solution</summary>
-                                <div class="content">
-                                    <p>
-                                        Ta nhận thấy chúng ta có thể dùng Segment tree để xử lí truy vấn. Nhưng vấn đề ở đây là làm sao biểu diễn các node con để chúng nằm liền kề nhau để sử dụng ST. <br>
-                                        May thay, chúng ta có thể sử dụng <b>Phương pháp Đường đi Euler trên cây</b> để biểu diễn các node. Cụ thể hơn vì sao thì mọi người có thể đọc về <b>Phương pháp Đường đi Euler trên cây</b> <br>
-                                        Từ đó chúng ta có thể dùng Segment tree trên mảng các node trên cây được trải phẳng.
-                                    </p>
-                                    <details class="solution">
-                                        <summary class="solution-complete">Source code</summary>
-                                        <pre><code class="hljs cpp">
-
-</code></pre>
-                                    </details>
-
-                                </div>
-                            </details>
-                        </p>
-                    </article>
-                    <article>
-                        <h3>Data structure</h3>
-                        <p>
-                            Đây thường là những bài toán mà chúng ta sẽ sử dụng Segment tree mà mỗi node lưu một cấu trúc dữ liệu để giải. 
-                            Thường những bài cơ bản thuộc dạng này sẽ không có truy vấn cập nhập vì việc cập nhập sẽ tốn hơn \( O(logn) \) để cập nhập. 
-                            Các cấu trúc dữ liệu thường dùng là <b>vector, set, multiset, map, ...</b> <br>
-                            Những bài toán dạng này thường có giới hạn thời gian và bộ nhớ cao hơn bình thường một chút, hoặc giới hạn số lượng phần tử thấp hơn bình thường.
-                        </p>
-                        <section class="problem" id="data-structures">
+                            Đây thường là bài toán liên quan đến cây có gốc. Thường trong những bài này, cây sẽ được
+                            trải phẳng bằng <a
+                                href="https://vnoi.info/wiki/algo/data-structures/heavy-light-decomposition.md">Kỹ thuật
+                                HLD</a> hoặc <a
+                                href="https://vnoi.info/wiki/algo/graph-theory/euler-tour-on-tree.md">Phương pháp Đường
+                                đi Euler trên cây</a>.
+                        <section class="problem" id="graph-theory">
                             <h4 class="problem-title">Bài toán ví dụ:</h4>
                             <p class="problem-detail">
-                                Cho mảng \( A \) có \( n \). Cho \( q \) truy vấn gồm 2 loại như sau:
-                                <ul>
-                                    <li>\( 1 \ i \ v \): Gán phần tử \( A_i \) bằng \( v \)</li>
-                                    <li>\( 2 \ l \ r \ k \): Tìm số nhỏ nhất lớn hơn hoặc bằng \( k \) trong đoạn \( [l,r] \) của mảng \( A \)</li>
-                                </ul>
-                                Với mỗi truy vấn loại 2 in ra đáp án. <br>
-                                Giới hạn: 
-                                <ul>
-                                    <li>\( 1 &le; n,q &le; {10}^5 \)</li>
-                                    <li>\( -{10}^5 &le; A_i &le; {10}^5 \)</li>
-                                    <li>\( 1 &le; l &le; r &le; n \)</li>
-                                </ul>
-                                Giới hạn thời gian: \( 3s \) <br>
-                                Giới hạn bộ nhớ: \( 256M \)
+                                Cho cây gồm \( n \) node, có gốc là \( 1 \). Tất cả node ban đầu có giá trị bằng \( 0 \)
+                                Cho \( q \) truy vấn gồm 2 loại sau:
+                            <ul>
+                                <li><mark>\( 1 \ u \ x \)</mark>: Gán node \( u \) và tất cả node con của \( u \) bằng
+                                    \( x \)</li>
+                                <li><mark>\( 2 \ v\)</mark>: Tìm giá trị tại node \( v \)</li>
+                            </ul>
+                            Với mỗi truy vấn loại \( 2 \), in ra đáp án. <br>
+                            Giới hạn:
+                            <ul>
+                                <li>\( 1 &le; n &le; {10}^5 \)</li>
+                                <li>\( 1 &le; q &le; {10}^5 \)</li>
+                                <li>\( 1 &le; A_i,x &le; {10}^9 \)</li>
+                            </ul>
                             </p>
                         </section>
                         <details class="solution">
                             <summary class="solution-complete">Solution</summary>
                             <div class="content">
                                 <p>
-                                    Source: <a href="https://oj.vnoi.info/problem/segtree_itds1">VNOI Edu ST ITDS1</a> <br>
-                                    Ta thấy bài toán này giống như việc dùng hàm <b>upper_bound</b> trong đoạn \( [l,r] \). Nhưng khi đó chúng ta phải sắp xếp lại đoạn \( [l,r] \) rồi mới <b>upper_bound</b>, thời gian chạy bị chậm (\( O(nlogn) \)). Thay vì ta dùng trực tiếp trên đoạn \( [l,r] \), ta có thể chia nhỏ đoạn \( [l,r] \) ra và lấy min của kết quả hàm <b>upper_bound</b> giữa các đoạn. Như vậy, ta có thể dùng Segment tree với <b>multiset</b> để giải bài này. Lí do dùng multiset vì để dễ thực hiện truy vấn 1.
+                                    Ta nhận thấy chúng ta có thể dùng Segment tree để xử lí truy vấn. Nhưng vấn đề ở đây
+                                    là làm sao biểu diễn các node con để chúng nằm liền kề nhau để sử dụng ST. <br>
+                                    May thay, chúng ta có thể sử dụng <b>Phương pháp Đường đi Euler trên cây</b> để biểu
+                                    diễn các node. Cụ thể hơn vì sao thì mọi người có thể đọc về <b>Phương pháp Đường đi
+                                        Euler trên cây</b> <br>
+                                    Từ đó chúng ta có thể dùng Segment tree trên mảng các node trên cây được trải phẳng.
+                                </p>
+                                <details class="solution">
+                                    <summary class="solution-complete">Source code</summary>
+                                    <pre><code class="hljs cpp">
+
+</code></pre>
+                                </details>
+
+                            </div>
+                        </details>
+                        </p>
+                    </article>
+                    <article>
+                        <h3>Data structure</h3>
+                        <p>
+                            Đây thường là những bài toán mà chúng ta sẽ sử dụng Segment tree mà mỗi node lưu một cấu
+                            trúc dữ liệu để giải.
+                            Thường những bài cơ bản thuộc dạng này sẽ không có truy vấn cập nhập vì việc cập nhập sẽ tốn
+                            hơn \( O(logn) \) để cập nhập.
+                            Các cấu trúc dữ liệu thường dùng là <b>vector, set, multiset, map, ...</b> <br>
+                            Những bài toán dạng này thường có giới hạn thời gian và bộ nhớ cao hơn bình thường một chút,
+                            hoặc giới hạn số lượng phần tử thấp hơn bình thường.
+                        </p>
+                        <section class="problem" id="data-structures">
+                            <h4 class="problem-title">Bài toán ví dụ:</h4>
+                            <p class="problem-detail">
+                                Cho mảng \( A \) có \( n \). Cho \( q \) truy vấn gồm 2 loại như sau:
+                            <ul>
+                                <li>\( 1 \ i \ v \): Gán phần tử \( A_i \) bằng \( v \)</li>
+                                <li>\( 2 \ l \ r \ k \): Tìm số nhỏ nhất lớn hơn hoặc bằng \( k \) trong đoạn \( [l,r]
+                                    \) của mảng \( A \)</li>
+                            </ul>
+                            Với mỗi truy vấn loại 2 in ra đáp án. <br>
+                            Giới hạn:
+                            <ul>
+                                <li>\( 1 &le; n,q &le; {10}^5 \)</li>
+                                <li>\( -{10}^5 &le; A_i &le; {10}^5 \)</li>
+                                <li>\( 1 &le; l &le; r &le; n \)</li>
+                            </ul>
+                            Giới hạn thời gian: \( 3s \) <br>
+                            Giới hạn bộ nhớ: \( 256M \)
+                            </p>
+                        </section>
+                        <details class="solution">
+                            <summary class="solution-complete">Solution</summary>
+                            <div class="content">
+                                <p>
+                                    Source: <a href="https://oj.vnoi.info/problem/segtree_itds1">VNOI Edu ST ITDS1</a>
+                                    <br>
+                                    Ta thấy bài toán này giống như việc dùng hàm <b>upper_bound</b> trong đoạn \( [l,r]
+                                    \). Nhưng khi đó chúng ta phải sắp xếp lại đoạn \( [l,r] \) rồi mới
+                                    <b>upper_bound</b>, thời gian chạy bị chậm (\( O(nlogn) \)). Thay vì ta dùng trực
+                                    tiếp trên đoạn \( [l,r] \), ta có thể chia nhỏ đoạn \( [l,r] \) ra và lấy min của
+                                    kết quả hàm <b>upper_bound</b> giữa các đoạn. Như vậy, ta có thể dùng Segment tree
+                                    với <b>multiset</b> để giải bài này. Lí do dùng multiset vì để dễ thực hiện truy vấn
+                                    1.
                                 </p>
                                 <details class="solution">
                                     <summary class="solution-complete">Solution</summary>
