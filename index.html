@@ -220,12 +220,13 @@ void solve(int q)
                         <h3>Implementation</h3>
                         <p>
                             Chúng ta sẽ cài đặt Segment Tree thông qua con trỏ, một phương pháp tuy khó tiếp
-                            cận nhưng mang lại hiệu quả lớn về bộ nhớ. Hãy cùng phân tích cấu trúc và thao tác 
+                            cận nhưng mang lại hiệu quả lớn về bộ nhớ. Hãy cùng phân tích thuộc tính và thao tác 
                             của Segment Tree.<br>
-                            <h4>Cấu trúc</h4>
+                            <h4>Thuộc tính</h4>
                             <ul>
+                                <li><b><code class="hljs cpp">class node&lt;T&gt;</code></b>: Class node</li>
                                 <li><b><code class="hljs cpp">node&lt;T&gt; head</code></b>: Node root của Segment Tree</li>
-                                <li><b><code class="hljs cpp">function(T&lt;T, T&gt;)</code></b>: Hàm merge </li>
+                                <li><b><code class="hljs cpp">function(T&lt;T, T&gt;)</code></b>: Hàm f cần tính</li>
                             </ul>
                             <h4>Thao tác</h4>
                             <ul>
