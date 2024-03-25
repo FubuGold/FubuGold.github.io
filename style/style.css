@@ -1,0 +1,89 @@
+@import url("root.css");
+
+body * {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    font-size: calc(1rem + 0.1dvw);
+    line-height: 1.5em;
+}
+
+main {
+    padding-block: 2rem;
+    position: relative;
+    width: 80% !important;
+    margin: 0 auto !important;
+}
+
+aside {
+    position: fixed;
+}
+
+pre code {
+    font-size: 1.2em !important;
+    font-weight: 550 !important;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#doc {
+    width: 60%;
+    margin: 0 auto;
+}
+
+#outline {
+    overflow: auto;
+    padding-inline: 0.5rem;
+    font-size: calc(1rem + 0.1dvw);
+    & a {
+        width: 100%;
+        display: block;
+        overflow: hidden;
+        white-space: pre;
+        text-overflow: ellipsis;
+    }
+}
+
+#EA {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#EA-buy {
+    background-color: var(--accept);
+    padding: 6px;
+    border: none;
+    border-radius: 6px;
+}
+
+
+p,
+.katex * {
+    font-size: 1.05em;
+}
+
+
+.markdown-body mark {
+    padding: .2em .4em;
+    margin: 0;
+    white-space: break-spaces;
+    background-color: rgba(110, 118, 129, .4);
+    border-radius: 6px;
+}
+
+.solution-fail {
+    color: var(--deny);
+}
+
+.solution-partial {
+    color: var(--warning);
+}
+
+.solution-complete {
+    color: var(--accept);
+}
