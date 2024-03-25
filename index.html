@@ -188,7 +188,7 @@ void solve(int q)
                                     </div>
                                 </div>
                             </details>
-                            <details open>
+                            <details class="solution">
                                 <summary class="solution-complete">Segment tree</summary>
                                 <div class="content">
                                     <p>
@@ -203,7 +203,7 @@ void solve(int q)
                                     áp dụng tính chất và lưu lại kết quả cho đến khi chiều dài đoạn là \(1\). Chú ý
                                     rẳng các đoạn này có chiều dài lại lũy thừa của 2.<br>
 
-                                    <h4>Calculate: </h4>
+                                    <h4 id="calculating">Calculating: </h4>
 
                                     Ta có thể dễ nhận ra, với mọi đoạn \(A[l..r]\), ta có thể phân tích thành các đoạn
                                     liên tiếp có chiều dài là lũy thừa của 2. Sử dụng tính chất đó, ta có thể phân tích
@@ -218,6 +218,26 @@ void solve(int q)
                     </article>
                     <article>
                         <h3>Implementation</h3>
+                        <p>
+                            Chúng ta sẽ cài đặt Segment Tree thông qua con trỏ, một phương pháp tuy khó tiếp
+                            cận nhưng mang lại hiệu quả lớn về bộ nhớ. Hãy cùng phân tích cấu trúc và thao tác 
+                            của Segment Tree.<br>
+                            <h4>Cấu trúc</h4>
+                            <ul>
+                                <li><b><code class="hljs cpp">node&lt;T&gt; head</code></b>: Node root của Segment Tree</li>
+                                <li><b><code class="hljs cpp">function(T&lt;T, T&gt;)</code></b>: Hàm merge </li>
+                            </ul>
+                            <h4>Thao tác</h4>
+                            <ul>
+                                <li>
+                                    <b><code class="hljs cpp">get(l, r)</code></b>: dùng để tính giá trị của \(f(A[l..r])\)
+                                </li>
+                            </ul>
+                        </p>
+                        <section>
+                            <h4>Node</h4>
+                            <pre><code class="hljs cpp"></code></pre>
+                        </section>
                     </article>
                     <article>
                         <h3>Walk on tree</h3>
