@@ -30,14 +30,14 @@
 </head>
 
 <body>
+    <aside class="markdown-body" id="nav-aside">
+        <div class="toc" id="outline"></div>
+    </aside>
     <main class="markdown-body">
-        <aside>
-            <div class="toc" id="outline"></div>
-        </aside>
         <article id="doc">
             <article>
                 <h1>Segment tree</h1>
-                <div class="toc"></div>
+                <div class="toc" id="menu"></div>
                 <article>
                     <h2>Fundamental of Segment Tree</h2>
                     <article>
@@ -505,25 +505,28 @@ return 0;
                             <section class="problem-detail">
                                 <p>
                                     Cho mảng \( A \) gồm \( n \) số nguyên. Cho \( q \) truy vấn gồm 2 loại sau:
-                                    <ul>
-                                        <li><mark>\( 1 \ l \ r \ x \)</mark>: Tăng giá trị các phần tử trong đoạn \( [l,r] \) của mảng \( A \) lên \( x \) đơn vị</li>
-                                        <li><mark>\( 2 \ u \ v \)</mark>: In ra giá trị phần tử lớn nhất trong đoạn \( [u,v] \)</li>
-                                    </ul>
-                                    Giới hạn:
-                                    <ul>
-                                        <li>\( 1 &le; n,q &le; {10}^5\)</li>
-                                        <li>\( |A_i| &le; {10}^9 \)</li>
-                                    </ul>
+                                <ul>
+                                    <li><mark>\( 1 \ l \ r \ x \)</mark>: Tăng giá trị các phần tử trong đoạn \( [l,r]
+                                        \) của mảng \( A \) lên \( x \) đơn vị</li>
+                                    <li><mark>\( 2 \ u \ v \)</mark>: In ra giá trị phần tử lớn nhất trong đoạn \( [u,v]
+                                        \)</li>
+                                </ul>
+                                Giới hạn:
+                                <ul>
+                                    <li>\( 1 &le; n,q &le; {10}^5\)</li>
+                                    <li>\( |A_i| &le; {10}^9 \)</li>
+                                </ul>
                                 </p>
                             </section>
                             <details class="solution">
                                 <summary class="solution-fail">Brute force có ST</summary>
                                 <p>
                                     Truy vấn loại 2 ta làm như bình thường. <br>
-                                    Để xử lí truy vấn loại 1, chúng ta di chuyển qua tất cả các node mà đoạn quản lí nằm trong \( [l,r] \). <br>
-                                    <details class="solution">
-                                        <summary class="solution-complete">Source code</summary>
-                                        <pre><code class="hljs cpp">#include &lt;bits/stdc++.h&gt;
+                                    Để xử lí truy vấn loại 1, chúng ta di chuyển qua tất cả các node mà đoạn quản lí nằm
+                                    trong \( [l,r] \). <br>
+                                <details class="solution">
+                                    <summary class="solution-complete">Source code</summary>
+                                    <pre><code class="hljs cpp">#include &lt;bits/stdc++.h&gt;
 using namespace std;
 const int MAXN = 1e5;
 
@@ -649,35 +652,43 @@ int main()
     return 0;
 }
 </code></pre>
-                                    </details>
-                                    <p>
-                                        Nếu ta xử lí truy vấn loại 1 như thế thì chúng ta sẽ duyệt qua tối đa \( nlogn \) node, làm cho độ phức tạp thời gian là \( O(nlogn) \) cho mỗi truy vấn loại 1.
-                                    </p>
-                                    <ul>
-                                        <li><mark><b>Time complexity</b></mark>: <span
-                                                class="solution-fail">\(O(q \times nlogn)\)</span>
-                                        </li>
-                                        <li><mark><b>Space complexity</b></mark>: \(O(n)\)</li>
-                                    </ul>
+                                </details>
+                                <p>
+                                    Nếu ta xử lí truy vấn loại 1 như thế thì chúng ta sẽ duyệt qua tối đa \( nlogn \)
+                                    node, làm cho độ phức tạp thời gian là \( O(nlogn) \) cho mỗi truy vấn loại 1.
+                                </p>
+                                <ul>
+                                    <li><mark><b>Time complexity</b></mark>: <span class="solution-fail">\(O(q \times
+                                            nlogn)\)</span>
+                                    </li>
+                                    <li><mark><b>Space complexity</b></mark>: \(O(n)\)</li>
+                                </ul>
                                 </p>
                             </details>
                             <details class="solution">
                                 <summary class="solution-complete">Solution</summary>
                                 <p>
-                                    Source: <a href="https://oj.vnoi.info/problem/segtree_itlazy">VNOI Edu ST ITLAZY</a> <a href="https://oj.vnoi.info/problem/qmax2">VNOI QMAX2</a> (Mình lấy ITLAZY làm nguồn chính) <br>
+                                    Source: <a href="https://oj.vnoi.info/problem/segtree_itlazy">VNOI Edu ST ITLAZY</a>
+                                    <a href="https://oj.vnoi.info/problem/qmax2">VNOI QMAX2</a> (Mình lấy ITLAZY làm
+                                    nguồn chính) <br>
                                     Truy vấn loại 2 ta vẫn làm như bình thường. <br>
-                                    Giả sử gọi \( V(u) \) là giá trị lớn nhất mà node \( u \) quản lí. Để giảm bớt độ phức tạp của việc xử lí truy vấn loại 1 thì chúng ta không được xét hết các node mà đoạn quản lí nằm trong \( [l,r] \). <br>
+                                    Giả sử gọi \( V(u) \) là giá trị lớn nhất mà node \( u \) quản lí. Để giảm bớt độ
+                                    phức tạp của việc xử lí truy vấn loại 1 thì chúng ta không được xét hết các node mà
+                                    đoạn quản lí nằm trong \( [l,r] \). <br>
                                     Vì thế, chúng ta sử dụng kĩ thuật Lazy propagation:
-                                    <ul>
-                                        <li>Lưu \( T(u) \) với ý nghĩa tất cả các phần tử trong đoạn \( [l,r] \) được tăng lên \( T(u) \) đơn vị.</li>
-                                        <li>Trước truy vấn hoặc cập nhập, chúng ta sẽ "đẩy" giá trị \( T(u) \) xuống 2 node con \( v,k \) của nó:
-                                            <ul>
-                                                <li>\( T(v) += T(u) \)</li>
-                                                <li>\( T(k) += T(u) \)</li>
-                                                <li>\( T(u) = 0 \). Nhớ phải có bước này vì đã "đẩy" xuống node con, không thì sẽ bị cộng dồn</li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                <ul>
+                                    <li>Lưu \( T(u) \) với ý nghĩa tất cả các phần tử trong đoạn \( [l,r] \) được tăng
+                                        lên \( T(u) \) đơn vị.</li>
+                                    <li>Trước truy vấn hoặc cập nhập, chúng ta sẽ "đẩy" giá trị \( T(u) \) xuống 2 node
+                                        con \( v,k \) của nó:
+                                        <ul>
+                                            <li>\( T(v) += T(u) \)</li>
+                                            <li>\( T(k) += T(u) \)</li>
+                                            <li>\( T(u) = 0 \). Nhớ phải có bước này vì đã "đẩy" xuống node con, không
+                                                thì sẽ bị cộng dồn</li>
+                                        </ul>
+                                    </li>
+                                </ul>
                                 </p>
                                 <details class="solution">
                                     <summary class="solution-complete">Source code</summary>
@@ -685,10 +696,11 @@ int main()
 </code></pre>
                                 </details>
                                 <p>
-                                    Những bài liên quan đến Lazy propagation sẽ có hàm đẩy lazy xuống khác nhau. Vì thế nên cẩn thận với việc áp dụng Lazy propagation.
+                                    Những bài liên quan đến Lazy propagation sẽ có hàm đẩy lazy xuống khác nhau. Vì thế
+                                    nên cẩn thận với việc áp dụng Lazy propagation.
                                 </p>
                             </details>
-                        </section>                        
+                        </section>
                     </article>
                 </article>
                 <article>
@@ -707,8 +719,10 @@ int main()
                                     Cho mảng \( A \) gồm \( 2^n \) phần tử không âm. Tìm giá trị \( v \) từ mảng A bằng
                                     cách sau:
                                 <ul>
-                                    <li>Từ mảng A tạo mảng mới gồm \( A_1\ or\ A_2,\ A_3\ or\ A_4,\ ...,\ A_{2^n-1}\ or\
-                                        A_{2^n} \) có \( 2^{n-1} \) phần tử. Nói cách khác là tạo mảng mới từ giá trị
+                                    <li>Từ mảng A tạo mảng mới gồm \( A_1 \lor A_2,\ A_3 \lor A_4,\ ...,\
+                                        A_{2^n-1} \lor A_{2^n} \) có \( 2^{n-1} \) phần tử. Nói cách khác là tạo mảng
+                                        mới
+                                        từ giá trị
                                         của phép tính \( or \) giữa hai phần tử liên tiếp</li>
                                     <li>Từ mảng trên tạo mảng mới từ giá trị của phép tính \( xor \) giữa hai phần tử
                                         liên tiếp</li>
@@ -842,10 +856,10 @@ int main()
 </code></pre>
                                     </details>
                                     <p>
-                                        <ul>
-                                            <li><mark>Time complexity</mark>: \( O(nlogn) \)</li>
-                                            <li><mark>Space complexity</mark>: \( O(n) \)</li>
-                                        </ul>
+                                    <ul>
+                                        <li><mark>Time complexity</mark>: \( O(nlogn) \)</li>
+                                        <li><mark>Space complexity</mark>: \( O(n) \)</li>
+                                    </ul>
                                     </p>
                                 </div>
                             </details>
@@ -1026,10 +1040,10 @@ int main()
 </code></pre>
                                     </details>
                                     <p>
-                                        <ul>
-                                            <li><mark>Time complexity</mark>: \( O(nlogn) \)</li>
-                                            <li><mark>Space complexity</mark>: \( O(n) \)</li>
-                                        </ul>
+                                    <ul>
+                                        <li><mark>Time complexity</mark>: \( O(nlogn) \)</li>
+                                        <li><mark>Space complexity</mark>: \( O(n) \)</li>
+                                    </ul>
                                     </p>
                                 </div>
                             </details>
@@ -1254,10 +1268,10 @@ int main()
 </code></pre>
                                 </details>
                                 <p>
-                                    <ul>
-                                        <li><mark>Time complexity</mark>: \( O(n{log}^2n) \)</li>
-                                        <li><mark>Space complexity</mark>: \( O(n) \)</li>
-                                    </ul>
+                                <ul>
+                                    <li><mark>Time complexity</mark>: \( O(n{log}^2n) \)</li>
+                                    <li><mark>Space complexity</mark>: \( O(n) \)</li>
+                                </ul>
                                 </p>
                             </div>
                         </details>
@@ -1454,10 +1468,10 @@ int main()
 </code></pre>
                                 </details>
                                 <p>
-                                    <ul>
-                                        <li><mark>Time complexity</mark>: \( O(nlogn) \)</li>
-                                        <li><mark>Space complexity</mark>: \( O(n) \)</li>
-                                    </ul>
+                                <ul>
+                                    <li><mark>Time complexity</mark>: \( O(nlogn) \)</li>
+                                    <li><mark>Space complexity</mark>: \( O(n) \)</li>
+                                </ul>
                                 </p>
                             </div>
                         </details>
@@ -1638,10 +1652,10 @@ int main()
 </code></pre>
                                 </details>
                                 <p>
-                                    <ul>
-                                        <li><mark>Time complexity</mark>: \( O(n{log}^2n) \)</li>
-                                        <li><mark>Space complexity</mark>: \( O(nlogn) \)</li>
-                                    </ul>
+                                <ul>
+                                    <li><mark>Time complexity</mark>: \( O(n{log}^2n) \)</li>
+                                    <li><mark>Space complexity</mark>: \( O(nlogn) \)</li>
+                                </ul>
                                 </p>
                             </div>
                         </details>

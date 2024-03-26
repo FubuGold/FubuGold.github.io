@@ -36,13 +36,28 @@ const outline = aside.querySelector("#outline");
 resizeSidebar = () => {
     outline.style.width = window.getComputedStyle(doc).marginLeft;
 
-    outline.querySelectorAll("*").forEach((item) => {
+    outline.querySelectorAll("li").forEach((item) => {
         item.style.listStyleType = "none";
-        item.style.paddingLeft = "0.5em";
     });
+    outline.querySelectorAll("ul:not(:first-child)").forEach((item) => {
+        item.style.paddingLeft = "1em";
+    });
+    outline.querySelector("ul:first-child").style.paddingLeft = "0em";
 };
-document.addEventListener("DOMContentLoaded", resizeSidebar);
-window.addEventListener("resize", resizeSidebar);
+
+setSidebar = () => {
+    const style = window.getComputedStyle(document.querySelector("main"));
+    aside.style.right = `${parseFloat(style.marginRight)}px`;
+}
+
+const eventHandler = [resizeSidebar, setSidebar]
+
+eventHandler.forEach((handler) => {
+    window.addEventListener("resize", handler)
+    document.addEventListener("DOMContentLoaded", handler);
+});
+
+
 EA.addEventListener("click", (event) => {
     location.href = "https://www.facebook.com/profile.php?id=100065360947137";
 })
