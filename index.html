@@ -1096,8 +1096,112 @@ int main()
 using namespace std;
 const int MAXN = 1e5;
 
-/// Segment tree here
-/// Remember to replace the query function in main
+template &lt;typename T&gt;
+class node
+{
+public:
+    T value, lazy;
+    node *left, *right;
+ 
+    node() : value(T()), lazy(T()), left(nullptr), right(nullptr) {}
+    node(T x) : value(x), lazy(T()), left(nullptr), right(nullptr) {}
+ 
+    void add_child() // Tạo 2 con
+    {
+        if (!left)
+        {
+            left = new node();
+        }
+        if (!right)
+        {
+            right = new node();
+        }
+    }
+ 
+    void push_down(int l, int r)
+    {
+        if (!lazy)
+            return;
+        value = lazy;
+        if (l != r)
+        {
+            add_child();
+            left-&gt;lazy = lazy;
+            right-&gt;lazy = lazy;
+        }
+        lazy = 0;
+    }
+};
+ 
+template &lt;typename TREE_T&gt;
+class segment_tree
+{
+public:
+    node&lt;TREE_T&gt; head;
+    function&lt;TREE_T(TREE_T, TREE_T)&gt; f;
+    TREE_T INVALID = 0;
+ 
+    void build(int l, int r, node&lt;TREE_T&gt; *curr, vector&lt;TREE_T&gt; &amp;value)
+    {
+        if (l == r)
+        {
+            curr-&gt;value = value[l];
+        }
+        else
+        {
+            int mid = (l + r) &gt;&gt; 1;
+            curr-&gt;add_child();
+            build(l, mid, curr-&gt;left, value);
+            build(mid + 1, r, curr-&gt;right, value);
+ 
+            curr-&gt;value = f(curr-&gt;left-&gt;value, curr-&gt;right-&gt;value);
+        }
+    }
+    TREE_T get(int u, int v, int l, int r, node&lt;TREE_T&gt; *curr) const
+    {
+        curr-&gt;push_down(l, r);
+        if (u &lt;= l and r &lt;= v)
+        {
+            return curr-&gt;value;
+        }
+        else if (r &lt; u or l &gt; v)
+        {
+            return INVALID;
+        }
+        else
+        {
+            int mid = (l + r) &gt;&gt; 1; // = (l + r) / 2;
+            return f(get(u, v, l, mid, curr-&gt;left),
+                     get(u, v, mid + 1, r, curr-&gt;right));
+        }
+    }
+    void update(TREE_T value, int u, int v, int l, int r, node&lt;TREE_T&gt; *curr)
+    {
+        curr-&gt;push_down(l, r);
+        if (u &lt;= l and r &lt;= v)
+        {
+            curr-&gt;lazy += value;
+            curr-&gt;push_down(l, r);
+        }
+        else if (r &lt; u or l &gt; v)
+        {
+            return;
+        }
+        else
+        {
+            int mid = (l + r) &gt;&gt; 1;
+            curr-&gt;add_child();
+            update(value, u, v, l, mid, curr-&gt;left);
+            update(value, u, v, mid + 1, r, curr-&gt;right);
+ 
+            curr-&gt;value = f(curr-&gt;left-&gt;value, curr-&gt;right-&gt;value);
+        }
+    }
+};
+ 
+int sum(int x, int y) { return x + y; }
+ 
+segment_tree&lt;int&gt; tree;
 
 vector&lt;int&gt; adj[MAXN+1];
 int st[MAXN+1],ed[MAXN+1];
@@ -1120,16 +1224,17 @@ int main()
 {
     cin.tie(0) -&gt; sync_with_stdio(0);
     cin &gt;&gt; n &gt;&gt; q;
+    tree.f = sum;
     input(); // Read input here
     for (int i=1;i&lt;=n;i++) {
         int type; cin &gt;&gt; type;
         if (type == 1) {
             int u,x; cin &gt;&gt; u &gt;&gt; x;
-            tree.update(st[u],ed[u],x);
+            tree.update(x,st[u],ed[u],1,n,&amp;tree.head);
         }
         else {
             int v; cin &gt;&gt; v;
-            cout &lt;&lt; tree.query(st[v],st[v]);
+            cout &lt;&lt; tree.get(st[v],st[v],1,n,&amp;tree.head);
         }
     }
     return 0;
