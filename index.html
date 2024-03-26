@@ -500,6 +500,70 @@ return 0;
                     </article>
                     <article>
                         <h3>Lazy propagation</h3>
+                        <section class="problem" id="lazy-propagation">
+                            <h4 class="problem-title">Bài toán:</h4>
+                            <section class="problem-detail">
+                                <p>
+                                    Cho mảng \( A \) gồm \( n \) số nguyên. Cho \( q \) truy vấn gồm 2 loại sau:
+                                    <ul>
+                                        <li><mark>\( 1 \ l \ r \ x \)</mark>: Tăng giá trị các phần tử trong đoạn \( [l,r] \) của mảng \( A \) lên \( x \) đơn vị</li>
+                                        <li><mark>\( 2 \ u \ v \)</mark>: In ra giá trị phần tử lớn nhất trong đoạn \( [u,v] \)</li>
+                                    </ul>
+                                    Giới hạn:
+                                    <ul>
+                                        <li>\( 1 &le; n,q &le; {10}^5\)</li>
+                                        <li>\( \abs{A_i} &le; {10}^9 \)</li>
+                                    </ul>
+                                </p>
+                            </section>
+                            <details class="solution">
+                                <summary class="solution-fail">Brute force có ST</summary>
+                                <p>
+                                    Truy vấn loại 2 ta làm như bình thường. <br>
+                                    Để xử lí truy vấn loại 1, chúng ta di chuyển qua tất cả các node mà đoạn quản lí nằm trong \( [l,r] \). <br>
+                                    <details class="solution">
+                                        <summary class="solution-complete">Source code</summary>
+                                        <pre><code class="hljs cpp">
+</code></pre>
+                                    </details>
+                                    <p>
+                                        Nếu ta xử lí truy vấn loại 1 như thế thì chúng ta sẽ duyệt qua tối đa \( nlogn \) node, làm cho độ phức tạp thời gian là \( O(nlogn) \) cho mỗi truy vấn loại 1.
+                                    </p>
+                                    <ul>
+                                        <li><mark><b>Time complexity</b></mark>: <span
+                                                class="solution-fail">\(O(q \times nlogn)\)</span>
+                                        </li>
+                                        <li><mark><b>Space complexity</b></mark>: \(O(n)\)</li>
+                                    </ul>
+                                </p>
+                            </details>
+                            <details class="solution">
+                                <summary class="solution-complete">Solution</summary>
+                                <p>
+                                    Truy vấn loại 2 ta vẫn làm như bình thường. <br>
+                                    Giả sử gọi \( V(u) \) là giá trị lớn nhất mà node \( u \) quản lí. Để giảm bớt độ phức tạp của việc xử lí truy vấn loại 1 thì chúng ta không được xét hết các node mà đoạn quản lí nằm trong \( [l,r] \). <br>
+                                    Vì thế, chúng ta sử dụng kĩ thuật Lazy propagation:
+                                    <ul>
+                                        <li>Lưu \( T(u) \) với ý nghĩa tất cả các phần tử trong đoạn \( [l,r] \) được tăng lên \( T(u) \) đơn vị.</li>
+                                        <li>Trước truy vấn hoặc cập nhập, chúng ta sẽ "đẩy" giá trị \( T(u) \) xuống 2 node con \( v,k \) của nó:
+                                            <ul>
+                                                <li>\( T(v) += T(u) \)</li>
+                                                <li>\( T(k) += T(u) \)</li>
+                                                <li>\( T(u) = 0 \). Nhớ phải có bước này vì đã "đẩy" xuống node con, không thì sẽ bị cộng dồn</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </p>
+                                <details class="solution">
+                                    <summary class="solution-complete">Source code</summary>
+                                    <pre><code class="hljs cpp">
+</code></pre>
+                                </details>
+                                <p>
+                                    Những bài liên quan đến Lazy propagation sẽ có hàm đẩy lazy xuống khác nhau. Vì thế nên cẩn thận với việc áp dụng Lazy propagation.
+                                </p>
+                            </details>
+                        </section>                        
                     </article>
                 </article>
                 <article>
@@ -652,6 +716,12 @@ int main()
 
 </code></pre>
                                     </details>
+                                    <p>
+                                        <ul>
+                                            <li><mark>Time complexity</mark>: \( O(nlogn) \)</li>
+                                            <li><mark>Space complexity</mark>: \( O(n) \)</li>
+                                        </ul>
+                                    </p>
                                 </div>
                             </details>
                         </section>
@@ -827,6 +897,12 @@ int main()
 }
 </code></pre>
                                     </details>
+                                    <p>
+                                        <ul>
+                                            <li><mark>Time complexity</mark>: \( O(nlogn) \)</li>
+                                            <li><mark>Space complexity</mark>: \( O(n) \)</li>
+                                        </ul>
+                                    </p>
                                 </div>
                             </details>
                         </section>
@@ -1048,6 +1124,12 @@ int main()
 }
 </code></pre>
                                 </details>
+                                <p>
+                                    <ul>
+                                        <li><mark>Time complexity</mark>: \( O(n{log}^2n) \)</li>
+                                        <li><mark>Space complexity</mark>: \( O(n) \)</li>
+                                    </ul>
+                                </p>
                             </div>
                         </details>
                     </article>
@@ -1241,7 +1323,12 @@ int main()
 }
 </code></pre>
                                 </details>
-
+                                <p>
+                                    <ul>
+                                        <li><mark>Time complexity</mark>: \( O(nlogn) \)</li>
+                                        <li><mark>Space complexity</mark>: \( O(n) \)</li>
+                                    </ul>
+                                </p>
                             </div>
                         </details>
                         </p>
@@ -1420,6 +1507,12 @@ int main()
 }
 </code></pre>
                                 </details>
+                                <p>
+                                    <ul>
+                                        <li><mark>Time complexity</mark>: \( O(n{log}^2n) \)</li>
+                                        <li><mark>Space complexity</mark>: \( O(nlogn) \)</li>
+                                    </ul>
+                                </p>
                             </div>
                         </details>
                     </article>
