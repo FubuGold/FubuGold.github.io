@@ -929,7 +929,7 @@ int main()
                             <details class="solution">
                                 <summary class="solution-complete">Solution</summary>
                                 <p>
-                                    Source: <a href="https://oj.vnoi.info/problem/segtree_itlazy">VNOI Edu ST ITLAZY</a> <a href="https://oj.vnoi.info/problem/qmax2">VNOI QMAX2</a> (Mình lấy ITLAZY làm nguồn chính) <br>
+                                    Source: <a href="https://oj.vnoi.info/problem/segtree_itlazy">VNOI Edu ST ITLAZY</a> | <a href="https://oj.vnoi.info/problem/qmax2">VNOI QMAX2</a> (Source chính là ITLAZY) <br>
                                     Truy vấn loại 2 ta vẫn làm như bình thường. <br>
                                     Giả sử gọi \( V(u) \) là giá trị lớn nhất mà node \( u \) quản lí. Để giảm bớt độ phức tạp của việc xử lí truy vấn loại 1 thì chúng ta không được xét hết các node mà đoạn quản lí nằm trong \( [l,r] \). <br>
                                     Vì thế, chúng ta sử dụng kĩ thuật Lazy propagation:
@@ -937,8 +937,8 @@ int main()
                                         <li>Lưu \( T(u) \) với ý nghĩa tất cả các phần tử trong đoạn \( [l,r] \) được tăng lên \( T(u) \) đơn vị.</li>
                                         <li>Trước truy vấn hoặc cập nhập, chúng ta sẽ "đẩy" giá trị \( T(u) \) xuống 2 node con \( v,k \) của nó:
                                             <ul>
-                                                <li>\( T(v) += T(u) \)</li>
-                                                <li>\( T(k) += T(u) \)</li>
+                                                <li>\( T(v) \mathrel{{+}{=}} T(u) \)</li>
+                                                <li>\( T(k) \mathrel{{+}{=}} T(u) \)</li>
                                                 <li>\( T(u) = 0 \). Nhớ phải có bước này vì đã "đẩy" xuống node con, không thì sẽ bị cộng dồn</li>
                                             </ul>
                                         </li>
