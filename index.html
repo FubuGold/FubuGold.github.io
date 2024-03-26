@@ -512,7 +512,7 @@ return 0;
                                     Giới hạn:
                                     <ul>
                                         <li>\( 1 &le; n,q &le; {10}^5\)</li>
-                                        <li>\( \abs{A_i} &le; {10}^9 \)</li>
+                                        <li>\( |A_i| &le; {10}^9 \)</li>
                                     </ul>
                                 </p>
                             </section>
@@ -523,7 +523,131 @@ return 0;
                                     Để xử lí truy vấn loại 1, chúng ta di chuyển qua tất cả các node mà đoạn quản lí nằm trong \( [l,r] \). <br>
                                     <details class="solution">
                                         <summary class="solution-complete">Source code</summary>
-                                        <pre><code class="hljs cpp">
+                                        <pre><code class="hljs cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 1e5;
+
+template &lt;typename T&gt;
+class node
+{
+public:
+    T value, lazy;
+    node *left, *right;
+
+    node() : value(T()), lazy(T()), left(nullptr), right(nullptr) {}
+    node(T x) : value(x), lazy(T()), left(nullptr), right(nullptr) {}
+
+    void add_child() // Tạo 2 con
+    {
+        if (!left)
+        {
+            left = new node();
+        }
+        if (!right)
+        {
+            right = new node();
+        }
+    }
+};
+
+template &lt;typename TREE_T&gt;
+class segment_tree
+{
+public:
+    node&lt;TREE_T&gt; head;
+    function&lt;TREE_T(TREE_T, TREE_T)&gt; f;
+    TREE_T INVALID;
+
+    void build(int l, int r, node&lt;TREE_T&gt; *curr, vector&lt;TREE_T&gt; &amp;value)
+    {
+        if (l == r)
+        {
+            curr-&gt;value = value[l];
+        }
+        else
+        {
+            int mid = (l + r) &gt;&gt; 1;
+            curr-&gt;add_child();
+            build(l, mid, curr-&gt;left, value);
+            build(mid + 1, r, curr-&gt;right, value);
+
+            curr-&gt;value = f(curr-&gt;left-&gt;value, curr-&gt;right-&gt;value);
+        }
+    }
+    TREE_T get(int u, int v, int l, int r, node&lt;TREE_T&gt; *curr) const
+    {
+        if (u &lt;= l and r &lt;= v)
+        {
+            return curr-&gt;value;
+        }
+        else if (r &lt; u or l &gt; v)
+        {
+            return INVALID;
+        }
+        else
+        {
+            int mid = (l + r) &gt;&gt; 1; // = (l + r) / 2;
+            return f(get(u, v, l, mid, curr-&gt;left),
+                     get(u, v, mid + 1, r, curr-&gt;right));
+        }
+    }
+    void update(TREE_T value, int u, int v, int l, int r, node&lt;TREE_T&gt; *curr)
+    {
+        if (r &lt; u or l &gt; v)
+        {
+            return;
+        }
+        else if (l == r)
+        {
+            curr-&gt;value += value;
+        }
+        else
+        {
+            int mid = (l + r) &gt;&gt; 1;
+            curr-&gt;add_child();
+            update(value, u, v, l, mid, curr-&gt;left);
+            update(value, u, v, mid + 1, r, curr-&gt;right);
+
+            curr-&gt;value = f(curr-&gt;left-&gt;value, curr-&gt;right-&gt;value);
+        }
+    }
+};
+
+segment_tree&lt;long long&gt; tree;
+vector&lt;long long&gt; a(MAXN + 1);
+
+int main()
+{
+    cin.tie(0)-&gt;sync_with_stdio(0);
+    int n;
+    cin &gt;&gt; n;
+    tree.f = [](long long a, long long b) -&gt; long long
+    { return max(a, b); };
+    tree.INVALID = INT_MIN;
+    for (int i = 1; i &lt;= n; i++)
+    {
+        cin &gt;&gt; a[i];
+    }
+    tree.build(1, n, &amp;tree.head, a);
+    int q;
+    cin &gt;&gt; q;
+    while (q--)
+    {
+        int type, l, r;
+        cin &gt;&gt; type &gt;&gt; l &gt;&gt; r;
+        if (type == 1)
+        {
+            long long x;
+            cin &gt;&gt; x;
+            tree.update(x, l, r, 1, n, &amp;tree.head);
+        }
+        else
+        {
+            cout &lt;&lt; tree.get(l, r, 1, n, &amp;tree.head) &lt;&lt; '\n';
+        }
+    }
+    return 0;
+}
 </code></pre>
                                     </details>
                                     <p>
@@ -540,6 +664,7 @@ return 0;
                             <details class="solution">
                                 <summary class="solution-complete">Solution</summary>
                                 <p>
+                                    Source: <a href="https://oj.vnoi.info/problem/segtree_itlazy">VNOI Edu ST ITLAZY</a> <a href="https://oj.vnoi.info/problem/qmax2">VNOI QMAX2</a> (Mình lấy ITLAZY làm nguồn chính) <br>
                                     Truy vấn loại 2 ta vẫn làm như bình thường. <br>
                                     Giả sử gọi \( V(u) \) là giá trị lớn nhất mà node \( u \) quản lí. Để giảm bớt độ phức tạp của việc xử lí truy vấn loại 1 thì chúng ta không được xét hết các node mà đoạn quản lí nằm trong \( [l,r] \). <br>
                                     Vì thế, chúng ta sử dụng kĩ thuật Lazy propagation:
@@ -806,7 +931,7 @@ class segment_tree
 public:
     node&lt;TREE_T&gt; head;
     function&lt;TREE_T(TREE_T, TREE_T)&gt; f;
-    TREE_T INVALID = 0;
+    TREE_T INVALID;
 
     void build(int l, int r, node&lt;TREE_T&gt; *curr, vector&lt;TREE_T&gt; &amp;value)
     {
@@ -875,7 +1000,10 @@ int main()
     cin &gt;&gt; n &gt;&gt; k;
 
     for (int i = 0; i &lt;= k + 1; i++)
+    {
         st[i].f = sum;
+        st[i].INVALID = 0;
+    }
 
     for (int i = 1; i &lt;= n; i++)
     {
@@ -1008,7 +1136,7 @@ class segment_tree
 public:
     node&lt;TREE_T&gt; head;
     function&lt;TREE_T(TREE_T, TREE_T)&gt; f;
-    TREE_T INVALID = 0;
+    TREE_T INVALID;
 
     void build(int l, int r, node&lt;TREE_T&gt; *curr, vector&lt;TREE_T&gt; &amp;value)
     {
@@ -1084,6 +1212,7 @@ int main()
     for (int j = 0; j &lt; 21; j++)
     {
         tree[j].f = sum;
+        tree[j].INVALID = 0;
         for (int i = 1; i &lt;= n; i++)
         {
             vec[i] = (a[i] &gt;&gt; j) &amp; 1;
@@ -1221,7 +1350,7 @@ class segment_tree
 public:
     node&lt;TREE_T&gt; head;
     function&lt;TREE_T(TREE_T, TREE_T)&gt; f;
-    TREE_T INVALID = 0;
+    TREE_T INVALID;
  
     void build(int l, int r, node&lt;TREE_T&gt; *curr, vector&lt;TREE_T&gt; &amp;value)
     {
@@ -1307,6 +1436,7 @@ int main()
     cin.tie(0) -&gt; sync_with_stdio(0);
     cin &gt;&gt; n &gt;&gt; q;
     tree.f = sum;
+    tree.INVALID = 0;
     input(); // Read input here
     for (int i=1;i&lt;=n;i++) {
         int type; cin &gt;&gt; type;
