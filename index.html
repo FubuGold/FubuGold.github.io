@@ -703,8 +703,128 @@ int main()
                                     </p>
                                     <details class="solution">
                                         <summary class="solution-complete">Code mẫu</summary>
-                                        <pre><code class="hljs cpp">
-                                            
+                                        <pre><code class="hljs cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 1e5;
+
+template &lt;typename T&gt;
+class node
+{
+public:
+    T value;
+    node *left, *right;
+
+    node() : value(T()), left(nullptr), right(nullptr) {}
+    node(T x) : value(x), left(nullptr), right(nullptr) {}
+
+    void add_child() // Tạo 2 con
+    {
+        if (!left)
+        {
+            left = new node();
+        }
+        if (!right)
+        {
+            right = new node();
+        }
+    }
+};
+
+template &lt;typename TREE_T&gt;
+class segment_tree
+{
+public:
+    node&lt;TREE_T&gt; head;
+    function&lt;TREE_T(TREE_T, TREE_T)&gt; f;
+    TREE_T INVALID = 0;
+
+    void build(int l, int r, node&lt;TREE_T&gt; *curr, vector&lt;TREE_T&gt; &amp;value)
+    {
+        if (l == r)
+        {
+            curr-&gt;value = value[l];
+        }
+        else
+        {
+            int mid = (l + r) &gt;&gt; 1;
+            curr-&gt;add_child();
+            build(l, mid, curr-&gt;left, value);
+            build(mid + 1, r, curr-&gt;right, value);
+
+            curr-&gt;value = f(curr-&gt;left-&gt;value, curr-&gt;right-&gt;value);
+        }
+    }
+    TREE_T get(int u, int v, int l, int r, node&lt;TREE_T&gt; *curr) const
+    {
+        if (u &lt;= l and r &lt;= v)
+        {
+            return curr-&gt;value;
+        }
+        else if (r &lt; u or l &gt; v)
+        {
+            return INVALID;
+        }
+        else
+        {
+            int mid = (l + r) &gt;&gt; 1; // = (l + r) / 2;
+            return f(get(u, v, l, mid, curr-&gt;left),
+                     get(u, v, mid + 1, r, curr-&gt;right));
+        }
+    }
+    void update(TREE_T value, int u, int v, int l, int r, node&lt;TREE_T&gt; *curr)
+    {
+        if (u &lt;= l and r &lt;= v)
+        {
+            curr-&gt;value += value;
+        }
+        else if (r &lt; u or l &gt; v)
+        {
+            return;
+        }
+        else
+        {
+            int mid = (l + r) &gt;&gt; 1;
+            curr-&gt;add_child();
+            update(value, u, v, l, mid, curr-&gt;left);
+            update(value, u, v, mid + 1, r, curr-&gt;right);
+
+            curr-&gt;value = f(curr-&gt;left-&gt;value, curr-&gt;right-&gt;value);
+        }
+    }
+};
+
+long long sum(long long x, long long y) { return x + y; }
+
+segment_tree&lt;long long&gt; st[12];
+int a[MAXN + 1];
+
+int main()
+{
+    cin.tie(0)-&gt;sync_with_stdio(0);
+    int n, k;
+    cin &gt;&gt; n &gt;&gt; k;
+
+    for (int i = 0; i &lt;= k + 1; i++)
+        st[i].f = sum;
+
+    for (int i = 1; i &lt;= n; i++)
+    {
+        cin &gt;&gt; a[i];
+    }
+
+    for (int i = 1; i &lt;= n; i++)
+    {
+        st[1].update(1, a[i], a[i], 1, n, &amp;st[1].head);
+        for (int t = 2; t &lt;= min(k + 1, i); t++)
+        {
+            long long val = st[t - 1].get(1, a[i] - 1, 1, n, &amp;st[t - 1].head);
+            st[t].update(val, a[i], a[i], 1, n, &amp;st[t].head);
+        }
+    }
+
+    cout &lt;&lt; st[k + 1].get(1, n, 1, n, &amp;st[k + 1].head);
+    return 0;
+}
 </code></pre>
                                     </details>
                                 </div>
@@ -765,7 +885,167 @@ int main()
                                 </p>
                                 <details class="solution">
                                     <summary class="solution-complete">Source code</summary>
-                                    <pre><code class="hljs cpp">
+                                    <pre><code class="hljs cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 1e5;
+
+template &lt;typename T&gt;
+class node
+{
+public:
+    T value, lazy;
+    node *left, *right;
+
+    node() : value(T()), lazy(T()), left(nullptr), right(nullptr) {}
+    node(T x) : value(x), lazy(T()), left(nullptr), right(nullptr) {}
+
+    void add_child() // Tạo 2 con
+    {
+        if (!left)
+        {
+            left = new node();
+        }
+        if (!right)
+        {
+            right = new node();
+        }
+    }
+
+    void push_down(int l, int r)
+    {
+        if (!lazy)
+            return;
+        value = (r - l + 1) - value;
+        if (l != r)
+        {
+            add_child();
+            left-&gt;lazy ^= lazy;
+            right-&gt;lazy ^= lazy;
+        }
+        lazy = 0;
+    }
+};
+
+template &lt;typename TREE_T&gt;
+class segment_tree
+{
+public:
+    node&lt;TREE_T&gt; head;
+    function&lt;TREE_T(TREE_T, TREE_T)&gt; f;
+    TREE_T INVALID = 0;
+
+    void build(int l, int r, node&lt;TREE_T&gt; *curr, vector&lt;TREE_T&gt; &amp;value)
+    {
+        if (l == r)
+        {
+            curr-&gt;value = value[l];
+        }
+        else
+        {
+            int mid = (l + r) &gt;&gt; 1;
+            curr-&gt;add_child();
+            build(l, mid, curr-&gt;left, value);
+            build(mid + 1, r, curr-&gt;right, value);
+
+            curr-&gt;value = f(curr-&gt;left-&gt;value, curr-&gt;right-&gt;value);
+        }
+    }
+    TREE_T get(int u, int v, int l, int r, node&lt;TREE_T&gt; *curr) const
+    {
+        curr-&gt;push_down(l, r);
+        if (u &lt;= l and r &lt;= v)
+        {
+            return curr-&gt;value;
+        }
+        else if (r &lt; u or l &gt; v)
+        {
+            return INVALID;
+        }
+        else
+        {
+            int mid = (l + r) &gt;&gt; 1; // = (l + r) / 2;
+            return f(get(u, v, l, mid, curr-&gt;left),
+                     get(u, v, mid + 1, r, curr-&gt;right));
+        }
+    }
+    void update(TREE_T value, int u, int v, int l, int r, node&lt;TREE_T&gt; *curr)
+    {
+        curr-&gt;push_down(l, r);
+        if (u &lt;= l and r &lt;= v)
+        {
+            curr-&gt;lazy ^= value;
+            curr-&gt;push_down(l, r);
+        }
+        else if (r &lt; u or l &gt; v)
+        {
+            return;
+        }
+        else
+        {
+            int mid = (l + r) &gt;&gt; 1;
+            curr-&gt;add_child();
+            update(value, u, v, l, mid, curr-&gt;left);
+            update(value, u, v, mid + 1, r, curr-&gt;right);
+
+            curr-&gt;value = f(curr-&gt;left-&gt;value, curr-&gt;right-&gt;value);
+        }
+    }
+};
+
+int sum(int x, int y) { return x + y; }
+
+segment_tree&lt;int&gt; tree[21];
+vector&lt;int&gt; vec(MAXN + 1);
+int a[MAXN + 1];
+int n;
+
+int main()
+{
+    cin.tie(0)-&gt;sync_with_stdio(0);
+    cin &gt;&gt; n;
+    for (int i = 1; i &lt;= n; i++)
+        cin &gt;&gt; a[i];
+    for (int j = 0; j &lt; 21; j++)
+    {
+        tree[j].f = sum;
+        for (int i = 1; i &lt;= n; i++)
+        {
+            vec[i] = (a[i] &gt;&gt; j) &amp; 1;
+        }
+        tree[j].build(1, n, &amp;tree[j].head, vec);
+    }
+    int q;
+    cin &gt;&gt; q;
+    while (q--)
+    {
+        int type;
+        cin &gt;&gt; type;
+        if (type == 1)
+        {
+            int l, r;
+            cin &gt;&gt; l &gt;&gt; r;
+            long long ans = 0;
+            for (int i = 0; i &lt; 21; i++)
+            {
+                ans += (long long)tree[i].get(l, r, 1, n, &amp;tree[i].head) &lt;&lt; i;
+            }
+            cout &lt;&lt; ans &lt;&lt; '\n';
+        }
+        else
+        {
+            int l, r, x;
+            cin &gt;&gt; l &gt;&gt; r &gt;&gt; x;
+            for (int i = 0; i &lt; 21; i++)
+            {
+                if ((x &gt;&gt; i) &amp; 1)
+                {
+                    tree[i].update(1, l, r, 1, n, &amp;tree[i].head);
+                }
+            }
+        }
+    }
+    return 0;
+}
 </code></pre>
                                 </details>
                             </div>
@@ -908,8 +1188,131 @@ int main()
                                 </p>
                                 <details class="solution">
                                     <summary class="solution-complete">Solution</summary>
-                                    <pre><code class="hljs cpp">
+                                    <pre><code class="hljs cpp">#include &lt;bits/stdc++.h&gt;
 
+#define N int(1e5 + 1)
+#define inf int(1e9 + 1)
+
+using namespace std;
+
+struct Node
+{
+    Node *left = nullptr, *right = nullptr;
+    multiset&lt;int&gt; s;
+
+    void add_child()
+    {
+        if (!left)
+        {
+            left = new Node();
+        }
+        if (!right)
+        {
+            right = new Node();
+        }
+    }
+};
+
+Node *seg = new Node();
+int n, m, a[N];
+
+void Build(Node *p, int l, int r)
+{
+    if (l == r)
+    {
+        p-&gt;s.insert(a[l]);
+    }
+    else
+    {
+        int mid = (l + r) &gt;&gt; 1;
+        p-&gt;add_child();
+        Build(p-&gt;left, l, mid);
+        Build(p-&gt;right, mid + 1, r);
+
+        p-&gt;s.insert(p-&gt;left-&gt;s.begin(), p-&gt;left-&gt;s.end());
+        p-&gt;s.insert(p-&gt;right-&gt;s.begin(), p-&gt;right-&gt;s.end());
+    }
+}
+
+void Update(Node *p, int i, int val, int l, int r)
+{
+    auto loc = p-&gt;s.find(a[i]);
+    if (loc != p-&gt;s.end())
+    {
+        p-&gt;s.erase(loc);
+        p-&gt;s.insert(val);
+    }
+    if (l != r)
+    {
+        int mid = (l + r) &gt;&gt; 1;
+        if (i &lt;= mid)
+        {
+            Update(p-&gt;left, i, val, l, mid);
+        }
+        else
+        {
+            Update(p-&gt;right, i, val, mid + 1, r);
+        }
+    }
+}
+
+int Get(Node *p, int val, int i, int j, int l, int r)
+{
+    if (j &lt; l or i &gt; r)
+        return inf;
+    if (i &lt;= l and r &lt;= j)
+    {
+        auto it = p-&gt;s.lower_bound(val);
+
+        return (it != p-&gt;s.end() ? *it : inf);
+    }
+
+    int mid = (l + r) &gt;&gt; 1;
+
+    return min(Get(p-&gt;left, val, i, j, l, mid),
+               Get(p-&gt;right, val, i, j, mid + 1, r));
+}
+
+int main()
+{
+    cin.tie(0);
+    ios_base::sync_with_stdio(0);
+
+    cin &gt;&gt; n &gt;&gt; m;
+    for (int i = 1; i &lt;= n; ++i)
+    {
+        cin &gt;&gt; a[i];
+    }
+
+    Build(seg, 1, n);
+
+    while (m--)
+    {
+        int opt;
+
+        cin &gt;&gt; opt;
+
+        if (opt == 1)
+        {
+            int i, val;
+
+            cin &gt;&gt; i &gt;&gt; val;
+
+            Update(seg, i, val, 1, n);
+            a[i] = val;
+        }
+        else
+        {
+            int l, r, val;
+
+            cin &gt;&gt; l &gt;&gt; r &gt;&gt; val;
+
+            int ans = Get(seg, val, l, r, 1, n);
+
+            cout &lt;&lt; (ans &lt; inf ? ans : -1) &lt;&lt; &quot;\n&quot;;
+        }
+    }
+}
 </code></pre>
                                 </details>
                             </div>
