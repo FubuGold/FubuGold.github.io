@@ -1,5 +1,6 @@
 @import url("root.css");
 
+body,
 body * {
     margin: 0;
     padding: 0;
@@ -10,14 +11,17 @@ body * {
 }
 
 main {
-    padding-block: 2rem;
+    /* padding-block: 2em; */
     position: relative;
-    width: 80% !important;
+    width: 90% !important;
     margin: 0 auto !important;
 }
 
 aside {
     position: fixed;
+    isolation: isolate;
+    z-index: 2;
+    background-color: transparent !important;
 }
 
 pre code {
@@ -29,23 +33,50 @@ button:hover {
     cursor: pointer;
 }
 
+p {
+    font-size: 1.05em;
+}
+
+footer {
+    & * {
+        font-size: 0.9em;
+    }
+    display: grid;
+    place-items: center;
+
+}
+
+#credit {
+    &, & a {color: #6f7b84;}
+    & a:hover {
+        text-decoration: underline;
+        color: var(--link);
+    }
+}
+
 #doc {
-    width: 60%;
+    width: 50%;
     margin: 0 auto;
 }
 
-#outline {
-    overflow: auto;
-    padding-inline: 0.5rem;
-    font-size: calc(1rem + 0.1dvw);
-    & a {
-        width: 100%;
-        display: block;
-        overflow: hidden;
-        white-space: pre;
-        text-overflow: ellipsis;
+#nav-aside {
+    margin-top: 24px !important;
+
+    & #outline {
+        overflow: auto;
+        padding-inline: 0.5rem;
+        font-size: calc(1rem + 0.1dvw);
+
+        & a {
+            width: 100%;
+            display: block;
+            overflow: hidden;
+            white-space: pre;
+            text-overflow: ellipsis;
+        }
     }
 }
+
 
 #EA {
     display: flex;
@@ -62,7 +93,6 @@ button:hover {
 }
 
 
-p,
 .katex * {
     font-size: 1.05em;
 }
@@ -86,4 +116,37 @@ p,
 
 .solution-complete {
     color: var(--accept);
+}
+
+/* Bigger than 992px */
+@media only screen and (max-width: 1200px) {
+    #doc {
+        width: 60% !important;
+    }
+}
+
+/* Bigger than 768px */
+@media only screen and (max-width: 992px) {
+    #doc {
+        width: 70% !important;
+    }
+}
+
+/* Bigger than 600px */
+@media only screen and (max-width: 768px) {
+    #outline {
+        display: none;
+    }
+}
+
+/* Smaller than 600px */
+@media only screen and (max-width: 600px) {
+    #menu ul {
+        list-style-position: inside;
+        padding-inline-start: 0.75em;
+    }
+
+    main.markdown-body {
+        width: 100% !important;
+    }
 }
