@@ -389,8 +389,7 @@ class node
                                         <pre><code class="hljs cpp">#include &lt;bits/stdc++.h&gt;
 using namespace std;
 const int MAXN = 1e5;
-int a[MAXN + 1], p[MAXN + 1];
-int b[MAXN + 1];
+vector&lt;int&gt; a(MAXN+1), p(MAXN + 1);
 int main()
 {
     cin.tie(0)-&gt;sync_with_stdio(0);
@@ -404,18 +403,8 @@ int main()
     for (int i = 1; i &lt;= n; i++, cnt--)
     {
         cout &lt;&lt; a[p[i]] &lt;&lt; ' ';
-        int co = 1;
-        for (int j = 1; j &lt;= cnt; j++)
-        {
-            if (j == p[i])
-                continue;
-            b[co] = a[j];
-            co++;
-        }
-        for (int j = 1; j &lt;= cnt - 1; j++)
-        {
-            a[j] = b[j];
-        }
+        auto it = a.begin() + p[i];
+        a.erase(it);
     }
     return 0;
 }
@@ -449,7 +438,7 @@ int main()
                                         Để giải bài này, chúng ta có 2 cách sau:
                                     </p>
                                     <details class="solution">
-                                        <summary class="solution-partial">Segement tree + Binary search</summary>
+                                        <summary class="solution-partial">Segment tree + Binary search</summary>
                                         <p>
                                             Đối với cách này, Segment tree sẽ là một ST bình thường, hàm hợp là tổng 2
                                             nút con, cập nhập điểm. <br>
@@ -529,13 +518,13 @@ public:
     }
     void update(TREE_T value, int u, int v, int l, int r, node&lt;TREE_T&gt; *curr)
     {
-        if (r &lt; u or l &gt; v)
+        if (u &lt;= l and r &lt;= v)
+        {
+            curr-&gt;value = value;
+        }
+        else if (r &lt; u or l &gt; v)
         {
             return;
-        }
-        else if (l == r) 
-        {
-            curr-&gt;value += value;
         }
         else
         {
@@ -543,7 +532,7 @@ public:
             curr-&gt;add_child();
             update(value, u, v, l, mid, curr-&gt;left);
             update(value, u, v, mid + 1, r, curr-&gt;right);
- 
+    
             curr-&gt;value = f(curr-&gt;left-&gt;value, curr-&gt;right-&gt;value);
         }
     }
@@ -569,7 +558,7 @@ int bs(int k)
         else if (sum &gt; k) r = mid - 1;
         else l = mid + 1;
     }
-    tree.update(-1,ans,ans,1,n,&amp;tree.head); // Tương tự xóa phần tử ở ans
+    tree.update(0,ans,ans,1,n,&amp;tree.head);
     return ans;
 }
  
@@ -692,13 +681,13 @@ public:
     }
     void update(TREE_T value, int u, int v, int l, int r, node&lt;TREE_T&gt; *curr)
     {
-        if (r &lt; u or l &gt; v)
+        if (u &lt;= l and r &lt;= v)
+        {
+            curr-&gt;value = value;
+        }
+        else if (r &lt; u or l &gt; v)
         {
             return;
-        }
-        else if (l == r)
-        {
-            curr-&gt;value += value;
         }
         else
         {
@@ -706,7 +695,7 @@ public:
             curr-&gt;add_child();
             update(value, u, v, l, mid, curr-&gt;left);
             update(value, u, v, mid + 1, r, curr-&gt;right);
-
+    
             curr-&gt;value = f(curr-&gt;left-&gt;value, curr-&gt;right-&gt;value);
         }
     }
@@ -751,7 +740,7 @@ int main()
         cin &gt;&gt; x;
         int id = walk_on_tree(x, 1, n, &amp;tree.head);
         cout &lt;&lt; a[id] &lt;&lt; ' ';
-        tree.update(-1, id, id, 1, n, &amp;tree.head); // Tương tự xóa phần tử ở id
+        tree.update(0, id, id, 1, n, &amp;tree.head);
     }
     return 0;
 }
@@ -1049,7 +1038,7 @@ public:
         curr-&gt;push_down(l, r);
         if (u &lt;= l and r &lt;= v)
         {
-            curr-&gt;lazy += value;
+            curr-&gt;lazy = value;
             curr-&gt;push_down(l, r);
         }
         else if (r &lt; u or l &gt; v)
