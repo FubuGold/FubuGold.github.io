@@ -567,7 +567,7 @@ int bs(int k)
         else if (sum &gt; k) r = mid - 1;
         else l = mid + 1;
     }
-    tree.update(-1,ans,ans,1,n,&amp;tree.head);
+    tree.update(-1,ans,ans,1,n,&amp;tree.head); // Tương tự xóa phần tử ở ans
     return ans;
 }
  
@@ -749,7 +749,7 @@ int main()
         cin &gt;&gt; x;
         int id = walk_on_tree(x, 1, n, &amp;tree.head);
         cout &lt;&lt; a[id] &lt;&lt; ' ';
-        tree.update(-1, id, id, 1, n, &amp;tree.head);
+        tree.update(-1, id, id, 1, n, &amp;tree.head); // Tương tự xóa phần tử ở id
     }
     return 0;
 }
@@ -1307,7 +1307,7 @@ int main()
                                         được tính từ số cách tạo mảng con tăng dần với phần tử cuối có giá trị nhỏ hơn
                                         \( A_i \) có độ dài \( t-1 \). <br>
                                         Gọi \( dp[v][t] \) là số cách tạo ra mảng con tăng dần với giá trị cuối là \( v
-                                        \) và dộ dài \( t \).
+                                        \) và độ dài \( t \).
                                         Ta sẽ duyệt qua mảng \( A \) để tính \( dp[v][t] \): <br>
                                         \( dp[A_i][t] = \sum dp[v][t-1] \ &forall; \ v &lt; A_i \) <br>
                                         <br>
@@ -1470,7 +1470,7 @@ int main()
                                 <ul>
                                     <li><mark>\( 1 \ l \ r \)</mark>: Tính tổng \( A_l + A_{l+1} + ... + A_r\)</li>
                                     <li><mark>\( 2 \ l \ r \ x \)</mark>: \( xor \) mỗi giá trị trong đoạn \( [l,r] \)
-                                        của mảng \( A \)</li>
+                                        của mảng \( A \) với \( x \)</li>
                                 </ul>
                                 Với mỗi truy vấn loại 1 thì in ra đáp án trên mỗi dòng. <br>
                                 Giới hạn:
