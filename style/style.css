@@ -37,6 +37,23 @@ p {
     font-size: 1.05em;
 }
 
+footer {
+    & * {
+        font-size: 0.9em;
+    }
+    display: grid;
+    place-items: center;
+
+}
+
+#credit {
+    &, & a {color: #6f7b84;}
+    & a:hover {
+        text-decoration: underline;
+        color: var(--link);
+    }
+}
+
 #doc {
     width: 50%;
     margin: 0 auto;
@@ -44,11 +61,12 @@ p {
 
 #nav-aside {
     margin-top: 24px !important;
+
     & #outline {
         overflow: auto;
         padding-inline: 0.5rem;
         font-size: calc(1rem + 0.1dvw);
-    
+
         & a {
             width: 100%;
             display: block;

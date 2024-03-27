@@ -29,11 +29,11 @@
     <script src="./js/index.js" type="text/javascript" defer></script>
 </head>
 
-<body>
-    <aside class="markdown-body" id="nav-aside">
+<body class="markdown-body">
+    <aside id="nav-aside">
         <div class="toc" id="outline"></div>
     </aside>
-    <main class="markdown-body">
+    <main>
         <article id="doc">
             <article>
                 <h1>Segment tree</h1>
@@ -940,16 +940,19 @@ int main()
                                     phức tạp của việc xử lí truy vấn loại 1 thì chúng ta không được xét hết các node mà
                                     đoạn quản lí nằm trong \( [l,r] \). <br>
                                     Vì thế, chúng ta sử dụng kĩ thuật Lazy propagation:
-                                    <ul>
-                                        <li>Lưu \( T(u) \) với ý nghĩa tất cả các phần tử trong đoạn \( [l,r] \) được tăng lên \( T(u) \) đơn vị.</li>
-                                        <li>Trước truy vấn hoặc cập nhập, chúng ta sẽ "đẩy" giá trị \( T(u) \) xuống 2 node con \( v,k \) của nó:
-                                            <ul>
-                                                <li>\( T(v) \mathrel{{+}{=}} T(u) \)</li>
-                                                <li>\( T(k) \mathrel{{+}{=}} T(u) \)</li>
-                                                <li>\( T(u) = 0 \). Nhớ phải có bước này vì đã "đẩy" xuống node con, không thì sẽ bị cộng dồn</li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                <ul>
+                                    <li>Lưu \( T(u) \) với ý nghĩa tất cả các phần tử trong đoạn \( [l,r] \) được tăng
+                                        lên \( T(u) \) đơn vị.</li>
+                                    <li>Trước truy vấn hoặc cập nhập, chúng ta sẽ "đẩy" giá trị \( T(u) \) xuống 2 node
+                                        con \( v,k \) của nó:
+                                        <ul>
+                                            <li>\( T(v) \mathrel{{+}{=}} T(u) \)</li>
+                                            <li>\( T(k) \mathrel{{+}{=}} T(u) \)</li>
+                                            <li>\( T(u) = 0 \). Nhớ phải có bước này vì đã "đẩy" xuống node con, không
+                                                thì sẽ bị cộng dồn</li>
+                                        </ul>
+                                    </li>
+                                </ul>
                                 </p>
                                 <details class="solution">
                                     <summary class="solution-complete">Source code</summary>
@@ -1096,7 +1099,8 @@ int main()
 </code></pre>
                                 </details>
                                 <p>
-                                    <mark>Chú ý</mark>: Những bài liên quan đến Lazy propagation sẽ có hàm đẩy lazy xuống và có thể dữ liệu mỗi node chứa sẽ khác nhau.
+                                    <mark>Chú ý</mark>: Những bài liên quan đến Lazy propagation sẽ có hàm đẩy lazy
+                                    xuống và có thể dữ liệu mỗi node chứa sẽ khác nhau.
                                 </p>
                             </details>
                         </section>
@@ -1310,7 +1314,7 @@ int main()
                                         O(nlogn) \).
                                     </p>
                                     <details class="solution">
-                                        <summary class="solution-complete">Code mẫu</summary>
+                                        <summary class="solution-complete">Source code</summary>
                                         <pre><code class="hljs cpp">#include &lt;bits/stdc++.h&gt;
 using namespace std;
 const int MAXN = 1e5;
@@ -1922,7 +1926,7 @@ int main()
                                     1.
                                 </p>
                                 <details class="solution">
-                                    <summary class="solution-complete">Solution</summary>
+                                    <summary class="solution-complete">Source code</summary>
                                     <pre><code class="hljs cpp">#include &lt;bits/stdc++.h&gt;
 
 #define N int(1e5 + 1)
@@ -2062,7 +2066,13 @@ int main()
                 </article>
             </article>
         </article>
+        <hr>
     </main>
+    <footer>
+        <p id="credit">Composed by <a href="https://www.facebook.com/fbkisfriend">Trần Gia Huy</a>, 
+            <a href="https://www.facebook.com/bao.phanquoc.5243">Phan Quốc Bảo</a> 
+            and <a href="https://www.facebook.com/Mpk11112007">Mạc Phúc Khang</a></p>
+    </footer>
 </body>
 
 </html>
