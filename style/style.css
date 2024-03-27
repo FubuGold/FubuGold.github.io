@@ -10,6 +10,10 @@ body * {
     line-height: 1.5em;
 }
 
+code {
+    font-family: "Consolas", "Courier", ui-monospace !important;
+}
+
 main {
     /* padding-block: 2em; */
     position: relative;
