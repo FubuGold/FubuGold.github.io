@@ -335,22 +335,22 @@ class node
                             <pre><code class="hljs cpp">void update(TREE_T value, int u, int v, int l, int r, node&lt;TREE_T&gt; *curr)
 {
     if (u &lt;= l and r &lt;= v)
-        {
-            curr-&gt;value = value;
-        }
-        else if (r &lt; u or l &gt; v)
-        {
-            return;
-        }
-        else
-        {
-            int mid = (l + r) &gt;&gt; 1;
-            curr-&gt;add_child();
-            update(value, u, v, l, mid, curr-&gt;left);
-            update(value, u, v, mid + 1, r, curr-&gt;right);
- 
-            curr-&gt;value = f(curr-&gt;left-&gt;value, curr-&gt;right-&gt;value);
-        }
+    {
+        curr-&gt;value = value;
+    }
+    else if (r &lt; u or l &gt; v)
+    {
+        return;
+    }
+    else
+    {
+        int mid = (l + r) &gt;&gt; 1;
+        curr-&gt;add_child();
+        update(value, u, v, l, mid, curr-&gt;left);
+        update(value, u, v, mid + 1, r, curr-&gt;right);
+
+        curr-&gt;value = f(curr-&gt;left-&gt;value, curr-&gt;right-&gt;value);
+    }
 }
 </code></pre>
                         </details>
@@ -391,31 +391,31 @@ int a[MAXN + 1], p[MAXN + 1];
 int b[MAXN + 1];
 int main()
 {
-cin.tie(0)-&gt;sync_with_stdio(0);
-int n;
-cin &gt;&gt; n;
-for (int i = 1; i &lt;= n; i++)
-    cin &gt;&gt; a[i];
-for (int i = 1; i &lt;= n; i++)
-    cin &gt;&gt; p[i];
-int cnt = n;
-for (int i = 1; i &lt;= n; i++, cnt--)
-{
-    cout &lt;&lt; a[p[i]] &lt;&lt; ' ';
-    int co = 1;
-    for (int j = 1; j &lt;= cnt; j++)
+    cin.tie(0)-&gt;sync_with_stdio(0);
+    int n;
+    cin &gt;&gt; n;
+    for (int i = 1; i &lt;= n; i++)
+        cin &gt;&gt; a[i];
+    for (int i = 1; i &lt;= n; i++)
+        cin &gt;&gt; p[i];
+    int cnt = n;
+    for (int i = 1; i &lt;= n; i++, cnt--)
     {
-        if (j == p[i])
-            continue;
-        b[co] = a[j];
-        co++;
+        cout &lt;&lt; a[p[i]] &lt;&lt; ' ';
+        int co = 1;
+        for (int j = 1; j &lt;= cnt; j++)
+        {
+            if (j == p[i])
+                continue;
+            b[co] = a[j];
+            co++;
+        }
+        for (int j = 1; j &lt;= cnt - 1; j++)
+        {
+            a[j] = b[j];
+        }
     }
-    for (int j = 1; j &lt;= cnt - 1; j++)
-    {
-        a[j] = b[j];
-    }
-}
-return 0;
+    return 0;
 }
 </code></pre>
                                     </details>
@@ -922,12 +922,12 @@ int main()
 </code></pre>
                                 </details>
                                 <p>
-                                    Nếu ta xử lí truy vấn loại 1 như thế thì chúng ta sẽ duyệt qua tối đa \( nlogn \)
-                                    node, làm cho độ phức tạp thời gian là \( O(nlogn) \) cho mỗi truy vấn loại 1.
+                                    Nếu ta xử lí truy vấn loại 1 như thế thì chúng ta sẽ duyệt qua tối đa \( n \)
+                                    node, làm cho độ phức tạp thời gian là \( O(n) \) cho mỗi truy vấn loại 1.
                                 </p>
                                 <ul>
                                     <li><mark><b>Time complexity</b></mark>: <span class="solution-fail">\(O(q \times
-                                            nlogn)\)</span>
+                                            n)\)</span>
                                     </li>
                                     <li><mark><b>Space complexity</b></mark>: \(O(n)\)</li>
                                 </ul>
@@ -1165,7 +1165,7 @@ int main()
                                     </ul>
                                     Từ nhận xét trên, ta có lời giải như sau:
                                     Xây dụng ST trên mảng \( A \) với mỗi node \( u \) trên cây được tính từ node bên
-                                    trái \( v \) và node bên phải \( t \) bằng phép tính \( or \) hoặc \( xor \) tùy
+                                    trái \( v \) và node bên phải \( t \) bằng phép tính \( \lor \) hoặc \( xor \) tùy
                                     theo tầng của node \( u \).
                                     </p>
                                     <details class="solution">
