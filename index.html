@@ -233,7 +233,7 @@ class segment_tree
 {
 public:
     node&lt;TREE_T&gt; head;
-    function&lt;T(T, T)&gt; f
+    function&lt;T(T, T)&gt; f;
     T INVALID;
 
     void build(int l, int r, node&lt;TREE_T&gt; *curr, vector&lt;TREE_T&gt; &value) {...}
