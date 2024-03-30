@@ -2058,6 +2058,43 @@ int main()
                         </details>
                     </article>
                 </article>
+                <article>
+                    <h2>Exercise</h2>
+                    <p>
+                        Link bài tập: <a href="https://docs.google.com/document/d/1clwAkIB0cEqP0wIQbWxke04hWpFcnv0CZKR9UmTvocE/edit">Link</a>
+                    </p>
+                    <p><b>Counting prime</b></p>
+                    <details class="solution">
+                        <summary class="solution-complete">Solution</summary>
+                        <p>
+                            Để xét xem số \( v \) có phải là số nguyên tố hay không thì chúng ta dùng sàng nguyên tố.
+                            Chúng ta sẽ biến đổi dãy số thành 0 hoặc 1 cho từng phần tử, tương đương với số đó có phải là số nguyên tố hay không (không : 0, có : 1). Dựng ST trên dãy số đó. Khi cập nhập, ta cũng xét \( x \) có phải là số nguyên tố hay không. Nếu có thì cập nhập gán đoạn \( [l,r] \) bằng 1, nếu không thì bằng 0.
+                        </p>
+                    </details>
+                    <p><b>Seating</b></p>
+                    <details class="solution">
+                        <summary class="solution-complete">Solution</summary>
+                        <p>
+                            Giả sử giá trị của ghế \( i \) là 1 nếu trống, 0 nếu có người. Truy vấn \( L \) thì xử lí bằng Segment tree lazy propagation. Còn truy vấn \( A \) thì bài toán rút gọn lại thành tìm đoạn 1 liên tiếp không nhỏ hơn \( p \) ở bên trái nhất. <br>
+                            Với mỗi node trên cây, chúng ta lưu 3 thông tin sau: <b>mx</b> là số lượng phần tử của đoạn 1 dài nhất, <b>pre</b> là số lượng của tiền tố chỉ có số 1 dài nhất, <b>suf</b> là số lượng của hậu tố chỉ có số 1 dài nhất. Gọi \( u \) là node hiện tại, \( v,t \) lần lượt là node con bên trái và bên phải, \( len(k) \) là độ dài của đoạn mà node \( k \) quản lí. Khi gộp 2 node con lại, chúng ta tính giá trị node hiện tại như sau:
+                            <ul>
+                                <li>\(u.mx = max(v.mx,t.mx,v.suf+t.pre) \)</li>
+                                <li>\( u.pre = v.pre \). Nếu \( v.pre == len(v) \) thì \(u.pre = v.pre + t.pre \)</li>
+                                <li>\( u.suf = t.suf \). Nếu \( t.suf == len(t) \) thì \(u.suf = t.suf + v.suf \)</li>
+                            </ul>
+                            Để kiếm đoạn trái nhất có độ dài ít nhất \( p \), chúng ta đi xuống node trái cho tới khi \( mx &lt; v \). Khi đó, nếu đoạn cần tìm nằm ở cả bên trái và bên phải thì trả về giá trị bắt đầu của đoạn đó. Còn không thì đi xuống bên trái và lặp lại.
+                        </p>
+                    </details>
+                    <p><b>Flip card</b></p>
+                    <details class="solution">
+                        <summary class="solution-complete">Solution</summary>
+                        <p>
+                            Cách làm bài này tương tự như bài trên, lưu 3 biến mỗi node cho mỗi loại "S" và "P" nhưng có sự thay đổi như sau: <br>
+                            Segment tree bây giờ sẽ có lazy propagation, với ý nghĩa là đoạn \( [l,r] \) bị lật lại.
+                            Khi merge 2 node lại, chúng ta sẽ dựa vào lazy để biết lấy giá trị của loại nào để tính các giá trị tại node \( u \).
+                        </p>
+                    </details>
+                </article>
             </article>
         </article>
         <hr>
